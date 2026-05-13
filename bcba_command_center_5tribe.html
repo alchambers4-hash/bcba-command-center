@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0F0F0F">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzFBM0EyQSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwRDIwMTgiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdvbGQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I0Y1Qzg0MiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNDOTk2MUEiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdyZWVuIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMyRUNDNzEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMUE3QTQ1Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGZpbHRlciBpZD0ic2hhZG93IiB4PSItNSUiIHk9Ii01JSIgd2lkdGg9IjExMCUiIGhlaWdodD0iMTIwJSI+CiAgICAgIDxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSI0IiBzdGREZXZpYXRpb249IjgiIGZsb29kLWNvbG9yPSIjMDAwIiBmbG9vZC1vcGFjaXR5PSIwLjUiLz4KICAgIDwvZmlsdGVyPgogICAgPGNsaXBQYXRoIGlkPSJyb3VuZCI+CiAgICAgIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEwIiByeT0iMTEwIi8+CiAgICA8L2NsaXBQYXRoPgogIDwvZGVmcz4KCiAgPCEtLSBCYWNrZ3JvdW5kIC0tPgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEwIiBmaWxsPSJ1cmwoI2JnKSIvPgoKICA8IS0tIFN1YnRsZSB0ZXh0dXJlIGxpbmVzIC0tPgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEwIiBmaWxsPSJub25lIiBzdHJva2U9IiMyRUNDNzExMSIgc3Ryb2tlLXdpZHRoPSIxIi8+CgogIDwhLS0gVG9wIGdvbGQgYWNjZW50IGJhciAtLT4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjgiIHJ4PSIwIiBmaWxsPSJ1cmwoI2dvbGQpIiBjbGlwLXBhdGg9InVybCgjcm91bmQpIi8+CiAgPCEtLSBCb3R0b20gZ29sZCBhY2NlbnQgYmFyIC0tPgogIDxyZWN0IHg9IjAiIHk9IjUwNCIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI4IiBmaWxsPSJ1cmwoI2dvbGQpIiBjbGlwLXBhdGg9InVybCgjcm91bmQpIi8+CgogIDwhLS0gR29sZCBib3JkZXIgcmluZyAtLT4KICA8cmVjdCB4PSIxNCIgeT0iMTQiIHdpZHRoPSI0ODQiIGhlaWdodD0iNDg0IiByeD0iOTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNnb2xkKSIgc3Ryb2tlLXdpZHRoPSI1IiBvcGFjaXR5PSIwLjYiLz4KCiAgPCEtLSBJbm5lciBzdWJ0bGUgZ2xvdyBjaXJjbGUgLS0+CiAgPGNpcmNsZSBjeD0iMjU2IiBjeT0iMjMwIiByPSIxOTAiIGZpbGw9IiMyRUNDNzEwNiIvPgoKICA8IS0tIEIgbGV0dGVyIC0tPgogIDx0ZXh0CiAgICB4PSIxMDgiCiAgICB5PSIzNDAiCiAgICBmb250LWZhbWlseT0iJ0FyaWFsIEJsYWNrJywgJ0ltcGFjdCcsIHNhbnMtc2VyaWYiCiAgICBmb250LXdlaWdodD0iOTAwIgogICAgZm9udC1zaXplPSIyNzAiCiAgICBmaWxsPSJ1cmwoI2dyZWVuKSIKICAgIGZpbHRlcj0idXJsKCNzaGFkb3cpIgogICAgbGV0dGVyLXNwYWNpbmc9Ii04IgogID5CPC90ZXh0PgoKICA8IS0tIEMgbGV0dGVyIC0tPgogIDx0ZXh0CiAgICB4PSIyNDIiCiAgICB5PSIzNDAiCiAgICBmb250LWZhbWlseT0iJ0FyaWFsIEJsYWNrJywgJ0ltcGFjdCcsIHNhbnMtc2VyaWYiCiAgICBmb250LXdlaWdodD0iOTAwIgogICAgZm9udC1zaXplPSIyNzAiCiAgICBmaWxsPSJ1cmwoI2dvbGQpIgogICAgZmlsdGVyPSJ1cmwoI3NoYWRvdykiCiAgICBsZXR0ZXItc3BhY2luZz0iLTgiCiAgPkM8L3RleHQ+CgogIDwhLS0gQm90dG9tIHdvcmRtYXJrIC0tPgogIDx0ZXh0CiAgICB4PSIyNTYiCiAgICB5PSI0MzAiCiAgICBmb250LWZhbWlseT0iJ0FyaWFsIEJsYWNrJywgJ0ltcGFjdCcsIHNhbnMtc2VyaWYiCiAgICBmb250LXdlaWdodD0iNzAwIgogICAgZm9udC1zaXplPSI0MiIKICAgIGZpbGw9IiNGNUM4NDIiCiAgICB0ZXh0LWFuY2hvcj0ibWlkZGxlIgogICAgbGV0dGVyLXNwYWNpbmc9IjEwIgogICAgb3BhY2l0eT0iMC45IgogID5DQU1QPC90ZXh0PgoKICA8IS0tIFRoaW4gZ29sZCBkaXZpZGVyIGxpbmUgdW5kZXIgd29yZG1hcmsgLS0+CiAgPGxpbmUgeDE9IjE1NiIgeTE9IjQ0MCIgeDI9IjM1NiIgeTI9IjQ0MCIgc3Ryb2tlPSIjRjVDODQyIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNCIvPgo8L3N2Zz4K">
+<link rel="apple-touch-startup-image" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJnIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzFBM0EyQSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwRDIwMTgiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiBmaWxsPSJ1cmwoI2JnKSIvPgo8L3N2Zz4K">
+<meta name="apple-mobile-web-app-title" content="BC Command">
+<title>BC Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --orange:#F97316;--orange-dim:#7C3810;
+  --dark:#0F0F0F;--card:#1A1A1A;--card2:#242424;
+  --border:#2E2E2E;--text:#F5F5F5;--muted:#888;
+  --purple:#A855F7;--green:#22C55E;--yellow:#EAB308;--red:#EF4444;--blue:#3B82F6;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--text)}
+.app{max-width:480px;margin:0 auto;height:100vh;height:100dvh;display:flex;flex-direction:column;position:relative;overflow:hidden}
+
+/* HEADER */
+.header{background:var(--dark);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;padding-top:env(safe-area-inset-top,10px)}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;letter-spacing:1px;color:var(--orange);text-transform:uppercase}
+.logo span{color:var(--text)}
+.save-status{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;transition:color 0.3s}
+.save-status.saved{color:var(--green)}
+
+/* SCREENS */
+.screens{flex:1;overflow:hidden;position:relative;min-height:0}
+.screen{position:absolute;inset:0;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px;padding-bottom:80px;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity 0.2s,transform 0.2s}
+.screen.active{opacity:1;pointer-events:all;transform:translateY(0)}
+
+/* NAV */
+.nav{background:var(--card);border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:stretch;flex-shrink:0;padding-bottom:env(safe-area-inset-bottom,0px);overflow:hidden}
+.nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:none;border:none;color:var(--muted);font-family:'Barlow',sans-serif;font-size:8px;font-weight:500;cursor:pointer;padding:6px 2px;flex:1;min-width:0;transition:color 0.15s}
+.nav-btn.active{color:var(--orange)}
+.nav-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.nav-btn.active svg{stroke:var(--orange)}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px}
+.card2{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:21px;text-transform:uppercase;letter-spacing:0.5px;border-left:3px solid var(--orange);padding-left:10px}
+.label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:500}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--orange-dim);color:var(--orange);text-transform:uppercase;letter-spacing:0.5px}
+
+/* TRIBE ROWS */
+.tribe-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.tribe-row:last-child{border-bottom:none}
+.tribe-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.tribe-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;flex:1;text-transform:uppercase;letter-spacing:0.5px}
+.tribe-score{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px}
+.rank{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;padding:2px 8px;border-radius:4px;background:var(--border);color:var(--muted)}
+.rank.gold{background:#854F0B;color:#FAC775}
+
+/* INPUTS */
+input[type=number],input[type=text],select{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Barlow',sans-serif;font-size:15px;padding:8px 10px;outline:none;appearance:none;-webkit-appearance:none}
+input:focus,select:focus{border-color:var(--orange)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
+
+/* MATCH CARDS */
+.match-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px}
+.match-header{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+.match-row{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.t-label{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;flex:1;text-transform:uppercase}
+.score-inp{width:50px!important;text-align:center;padding:6px 4px!important}
+.vs{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--muted)}
+.winner-row{display:flex;align-items:center;gap:8px}
+.winner-row select{width:auto;font-size:13px;padding:4px 24px 4px 8px}
+
+/* TABLES */
+.rr-table{width:100%;border-collapse:collapse;font-size:13px}
+.rr-table th{font-family:'Barlow Condensed',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);padding:5px 6px;text-align:left;border-bottom:1px solid var(--border)}
+.rr-table td{padding:7px 6px;border-bottom:1px solid var(--border)}
+.rr-table tr:last-child td{border-bottom:none}
+
+/* MISC */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-box{background:#1e2a3a;border:1px solid #3B82F633;border-radius:8px;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.5}
+.preset-btn{flex:1;padding:9px 4px;border-radius:8px;border:1px solid var(--border);background:var(--card2);color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;cursor:pointer;text-transform:uppercase;transition:all 0.15s}
+.preset-btn.active{border-color:var(--orange);color:var(--orange);background:var(--orange-dim)}
+.two-x-badge{font-size:10px;font-weight:700;background:#854F0B;color:#FAC775;padding:2px 6px;border-radius:4px;margin-left:6px;display:none}
+.two-x-badge.show{display:inline}
+.station-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.station-item{background:var(--card2);border-radius:7px;padding:8px 10px;display:flex;gap:6px;align-items:center;font-size:12px}
+.station-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;color:var(--orange)}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:44px;color:var(--orange);text-transform:uppercase;letter-spacing:1px;line-height:1}
+.quick-tile{cursor:pointer;transition:opacity 0.15s}
+.quick-tile:active{opacity:0.7}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">BC<span> Command</span></div>
+    <div class="save-status" id="save-status">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      <span id="save-text">Loading…</span>
+    </div>
+  </div>
+
+  <!-- SCREENS -->
+  <div class="screens">
+
+    <!-- HOME -->
+    <div class="screen active" id="screen-home">
+      <div class="card" style="text-align:center;padding:22px 14px">
+        <div class="hero-title">Camp<br>Big Cedars</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:6px">2026 Sports Command Center</div>
+      </div>
+      <div class="section-title">Live standings</div>
+      <div class="card" id="home-standings"></div>
+      <div class="section-title">Quick launch</div>
+      <div class="grid2">
+        <div class="card2 quick-tile" onclick="goTo('scoreboard')">
+          <div style="font-size:24px;margin-bottom:6px">🏆</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase">Scoreboard</div>
+          <div class="label" style="margin-top:2px">Daily points</div>
+        </div>
+        <div class="card2 quick-tile" onclick="goTo('basketball')">
+          <div style="font-size:24px;margin-bottom:6px">🏀</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase">Basketball</div>
+          <div class="label" style="margin-top:2px">Tournament</div>
+        </div>
+        <div class="card2 quick-tile" onclick="goTo('gauntlet')">
+          <div style="font-size:24px;margin-bottom:6px">⚡</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase">Gauntlet</div>
+          <div class="label" style="margin-top:2px">Round robin</div>
+        </div>
+        <div class="card2 quick-tile" onclick="goTo('football')">
+          <div style="font-size:24px;margin-bottom:6px">🏈</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase">Football</div>
+          <div class="label" style="margin-top:2px">Round robin</div>
+        </div>
+        <div class="card2 quick-tile" onclick="goTo('soccer')">
+          <div style="font-size:24px;margin-bottom:6px">⚽</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase">Soccer</div>
+          <div class="label" style="margin-top:2px">Round robin</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCOREBOARD -->
+    <div class="screen" id="screen-scoreboard">
+      <div class="section-title">Scoreboard</div>
+      <div id="doubleup-section"></div>
+      <div id="day-entry"></div>
+      <div class="card">
+        <div class="section-title" style="font-size:17px;margin-bottom:12px">Final standings</div>
+        <div id="final-standings"></div>
+      </div>
+    </div>
+
+    <!-- BASKETBALL -->
+    <div class="screen" id="screen-basketball">
+      <div class="section-title">Basketball</div>
+      <div class="info-box">🏀 Basketball points are <strong style="color:var(--text)">never doubled</strong>. Set final placement at the bottom to add points to the weekly total.</div>
+      <div class="card">
+        <div class="label" style="margin-bottom:10px">Round-robin matchups</div>
+        <div id="bb-bracket"></div>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:17px;margin-bottom:10px">Tournament standings</div>
+        <table class="rr-table" id="bb-standings"></table>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:17px;margin-bottom:4px">Weekly points</div>
+        <div class="label" style="margin-bottom:12px">Set final tournament placement → adds to weekly total</div>
+        <div id="bb-points-entry"></div>
+        <div class="info-box" style="margin-top:10px">1st = 6 pts &nbsp;|&nbsp; 2nd = 5 pts &nbsp;|&nbsp; 3rd = 4 pts &nbsp;|&nbsp; 4th = 3 pts &nbsp;|&nbsp; 5th = 2 pts &nbsp;|&nbsp; Never doubled</div>
+      </div>
+    </div>
+
+    <!-- GAUNTLET -->
+    <div class="screen" id="screen-gauntlet">
+      <div class="section-title">Gauntlet</div>
+      <div class="card">
+        <div class="label" style="margin-bottom:8px">Round 1</div>
+        <div id="g-r1"></div>
+        <div class="label" style="margin:12px 0 8px">Round 2</div>
+        <div id="g-r2"></div>
+        <div class="label" style="margin:12px 0 8px">Round 3</div>
+        <div id="g-r3"></div>
+        <div class="label" style="margin:12px 0 8px">Round 4</div>
+        <div id="g-r4"></div>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:17px;margin-bottom:10px">Standings</div>
+        <table class="rr-table" id="g-standings"></table>
+      </div>
+      <div class="card">
+        <div class="label" style="margin-bottom:10px">Station order</div>
+        <div class="station-grid" id="station-list"></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div class="section-title" style="font-size:17px">Matchup Schedule</div>
+          <select onchange="showRRRound('gauntlet',this.value)" style="width:auto;font-size:13px;padding:4px 24px 4px 8px">
+            <option value="1">Round 1</option>
+            <option value="2">Round 2</option>
+            <option value="3">Round 3</option>
+            <option value="4">Round 4</option>
+          </select>
+        </div>
+        <div id="gauntlet-rr-schedule"></div>
+      </div>
+    </div>
+
+    <!-- FOOTBALL -->
+    <div class="screen" id="screen-football">
+      <div class="section-title">Flag Football</div>
+      <div id="football-bracket"></div>
+      <div class="card">
+        <div class="section-title" style="font-size:17px;margin-bottom:10px">Standings</div>
+        <table class="rr-table" id="football-standings"></table>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:16px;margin-bottom:10px">Tiebreaker — Goal Differential</div>
+        <div id="football-tiebreaker"></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div class="section-title" style="font-size:17px">Matchup Schedule</div>
+          <select onchange="showRRRound('football',this.value)" style="width:auto;font-size:13px;padding:4px 24px 4px 8px">
+            <option value="1">Round 1</option>
+            <option value="2">Round 2</option>
+            <option value="3">Round 3</option>
+            <option value="4">Round 4</option>
+            <option value="5">Round 5</option>
+          </select>
+        </div>
+        <div id="football-rr-schedule"></div>
+      </div>
+    </div>
+
+    <!-- SOCCER -->
+    <div class="screen" id="screen-soccer">
+      <div class="section-title">Soccer</div>
+      <div id="soccer-bracket"></div>
+      <div class="card">
+        <div class="section-title" style="font-size:17px;margin-bottom:10px">Standings</div>
+        <table class="rr-table" id="soccer-standings"></table>
+      </div>
+      <div class="card">
+        <div class="section-title" style="font-size:16px;margin-bottom:10px">Tiebreaker — Goal Differential</div>
+        <div id="soccer-tiebreaker"></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div class="section-title" style="font-size:17px">Matchup Schedule</div>
+          <select onchange="showRRRound('soccer',this.value)" style="width:auto;font-size:13px;padding:4px 24px 4px 8px">
+            <option value="1">Round 1</option>
+            <option value="2">Round 2</option>
+            <option value="3">Round 3</option>
+            <option value="4">Round 4</option>
+            <option value="5">Round 5</option>
+          </select>
+        </div>
+        <div id="soccer-rr-schedule"></div>
+      </div>
+    </div>
+
+    <!-- TIMER -->
+    <div class="screen" id="screen-timer">
+      <div class="section-title">Game Timer</div>
+
+      <!-- Half indicator -->
+      <div class="card" style="text-align:center;padding:12px 14px">
+        <div id="timer-half-label" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)">Half 1 of 2</div>
+        <div id="timer-half-dots" style="display:flex;justify-content:center;gap:8px;margin-top:6px">
+          <span id="hdot-1" style="width:10px;height:10px;border-radius:50%;background:var(--orange);display:inline-block"></span>
+          <span id="hdot-2" style="width:10px;height:10px;border-radius:50%;background:var(--border);display:inline-block"></span>
+        </div>
+      </div>
+
+      <!-- Big clock -->
+      <div class="card" id="timer-clock-card" style="text-align:center;padding:28px 14px;position:relative;overflow:hidden;transition:background 0.4s">
+        <div id="timer-display" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:96px;line-height:1;letter-spacing:2px;color:var(--green);transition:color 0.5s">7:00</div>
+        <div id="timer-progress-wrap" style="margin-top:16px;background:var(--border);border-radius:99px;height:8px;overflow:hidden">
+          <div id="timer-progress" style="height:100%;width:100%;background:var(--green);border-radius:99px;transition:width 0.5s linear,background 0.5s"></div>
+        </div>
+      </div>
+
+      <!-- Presets -->
+      <div class="card" style="display:flex;flex-direction:column;gap:10px">
+        <div class="label">Preset duration</div>
+        <div style="display:flex;gap:8px">
+          <button onclick="setPreset(7)" class="preset-btn" id="pre-7">7 min</button>
+          <button onclick="setPreset(10)" class="preset-btn" id="pre-10">10 min</button>
+          <button onclick="setPreset(0)" class="preset-btn" id="pre-custom">Custom</button>
+        </div>
+        <div id="custom-time-row" style="display:none;gap:8px;align-items:center">
+          <input type="number" id="custom-minutes" min="1" max="60" placeholder="Min" style="flex:1;text-align:center">
+          <span style="color:var(--muted);font-weight:600">:</span>
+          <input type="number" id="custom-seconds" min="0" max="59" placeholder="Sec" style="flex:1;text-align:center">
+          <button onclick="applyCustom()" style="background:var(--orange);border:none;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;padding:8px 14px;border-radius:8px;cursor:pointer">Set</button>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div style="display:flex;gap:10px">
+        <button id="timer-start-btn" onclick="timerStartStop()" style="flex:2;padding:16px;border-radius:10px;border:none;background:var(--green);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:background 0.2s">Start</button>
+        <button onclick="timerReset()" style="flex:1;padding:16px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;text-transform:uppercase;cursor:pointer">Reset</button>
+      </div>
+      <button onclick="timerNextHalf()" id="timer-next-btn" style="width:100%;padding:13px;border-radius:10px;border:1px solid var(--orange);background:transparent;color:var(--orange);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;display:none">Next Half →</button>
+      <div id="timer-halftime-banner" style="display:none;background:#1a2a1a;border:1px solid var(--green);border-radius:12px;padding:16px;text-align:center">
+        <div style="font-size:28px;margin-bottom:4px">⏸️</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;text-transform:uppercase;color:var(--green)">Halftime</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Tap "Next Half" when ready</div>
+      </div>
+    </div>
+
+  </div><!-- /screens -->
+
+  <!-- NAV -->
+  <div class="nav">
+    <button class="nav-btn active" id="nav-home" onclick="goTo('home')">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </button>
+    <button class="nav-btn" id="nav-scoreboard" onclick="goTo('scoreboard')">
+      <svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0012 0V2z"/></svg>
+      Scores
+    </button>
+    <button class="nav-btn" id="nav-basketball" onclick="goTo('basketball')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93c4.08 4.08 6.07 9.51 5.35 14.14"/><path d="M19.07 4.93c-4.08 4.08-6.07 9.51-5.35 14.14"/><path d="M2 12h20"/></svg>
+      Hoops
+    </button>
+    <button class="nav-btn" id="nav-gauntlet" onclick="goTo('gauntlet')">
+      <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Gauntlet
+    </button>
+    <button class="nav-btn" id="nav-football" onclick="goTo('football')">
+      <svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="6" transform="rotate(-45 12 12)"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/><line x1="10" y1="12" x2="12" y2="10"/><line x1="12" y1="14" x2="14" y2="12"/></svg>
+      Football
+    </button>
+    <button class="nav-btn" id="nav-soccer" onclick="goTo('soccer')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 000 20"/><path d="M2 12h20"/></svg>
+      Soccer
+    </button>
+    <button class="nav-btn" id="nav-timer" onclick="goTo('timer')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Timer
+    </button>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+const TRIBES=[{name:'Purple',color:'#A855F7',key:'purple'},{name:'Green',color:'#22C55E',key:'green'},{name:'Yellow',color:'#EAB308',key:'yellow'},{name:'Red',color:'#EF4444',key:'red'},{name:'Blue',color:'#3B82F6',key:'blue'}];
+const DAYS=['tue','wed','thu','fri'];
+const DAY_LABELS={tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday'};
+// Points per placement per event (1st→2nd→3rd→4th→5th)
+const EVENT_PTS={
+  soccer:     [14,12,10,7,4],
+  gauntlet:   [13,11,9,6,4],
+  football:   [13,11,9,6,4],
+  amazingrace:[15,12,10,7,4],
+  basketball: [6,5,4,3,2]
+};
+// Which day each event falls on
+const EVENT_TO_DAY={soccer:'tue',gauntlet:'wed',football:'thu',amazingrace:'fri'};
+// Which event is on each day
+const DAY_TO_EVENT={tue:'soccer',wed:'gauntlet',thu:'football',fri:'amazingrace'};
+const EVENT_LABELS={soccer:'⚽ Soccer',football:'🏈 Football',gauntlet:'⚡ Gauntlet',amazingrace:'🏃 Amazing Race'};
+const STATIONS=['Cone Retrieval','Cornhole Toss','Bottle Flip + Chug','Egg Walk','Puzzle','Knockerball','Find a Bible Verse','Hula Hoop Chain Walk','Blindfold Build','Whipped Cream Catch','100 Meter Dash'];
+// 5-tribe Gauntlet: 3 rounds, some tribes get a bye each round
+const G_ROUNDS=[
+  [{t1:'Purple',t2:'Red',key:'g1'},{t1:'Green',t2:'Yellow',key:'g2'}],   // Blue has bye
+  [{t1:'Purple',t2:'Green',key:'g3'},{t1:'Red',t2:'Blue',key:'g4'}],     // Yellow has bye
+  [{t1:'Purple',t2:'Yellow',key:'g5'},{t1:'Green',t2:'Blue',key:'g6'}],  // Red has bye
+  [{t1:'Red',t2:'Yellow',key:'g7'},{t1:'Purple',t2:'Blue',key:'g8'}]     // Green has bye
+];
+// Full round-robin: every tribe vs every other (10 matchups)
+const RR=[
+  {t1:'Purple',t2:'Green',key:'m1'},{t1:'Purple',t2:'Yellow',key:'m2'},{t1:'Purple',t2:'Red',key:'m3'},{t1:'Purple',t2:'Blue',key:'m4'},
+  {t1:'Green',t2:'Yellow',key:'m5'},{t1:'Green',t2:'Red',key:'m6'},{t1:'Green',t2:'Blue',key:'m7'},
+  {t1:'Yellow',t2:'Red',key:'m8'},{t1:'Yellow',t2:'Blue',key:'m9'},
+  {t1:'Red',t2:'Blue',key:'m10'}
+];
+const BB=[
+  {t1:'Purple',t2:'Green',key:'b1'},{t1:'Purple',t2:'Yellow',key:'b2'},{t1:'Purple',t2:'Red',key:'b3'},{t1:'Purple',t2:'Blue',key:'b4'},
+  {t1:'Green',t2:'Yellow',key:'b5'},{t1:'Green',t2:'Red',key:'b6'},{t1:'Green',t2:'Blue',key:'b7'},
+  {t1:'Yellow',t2:'Red',key:'b8'},{t1:'Yellow',t2:'Blue',key:'b9'},
+  {t1:'Red',t2:'Blue',key:'b10'}
+];
+
+// ── JSONBIN CONFIG ────────────────────────────────
+const JSONBIN_ID  = '6a048882c0954111d81a0ef2';
+const JSONBIN_KEY = '$2a$10$kvsODecaTPsiInzLRxYxjugC4OkzX9CAavmHe5IMmU3N86tQP5J.a';
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
+
+let saveTimer     = null;
+let _remoteData   = null;
+let _suppressWrite= false;
+
+function dot(name,sz=11){const t=TRIBES.find(x=>x.name===name);return `<span class="tribe-dot" style="width:${sz}px;height:${sz}px;background:${t?t.color:'#888'}"></span>`;}
+
+// ── NAV ──────────────────────────────────────────
+function goTo(s){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('screen-'+s).classList.add('active');
+  document.getElementById('nav-'+s).classList.add('active');
+  if(s==='home')renderHome();
+}
+
+// ── STORAGE ──────────────────────────────────────
+function collectState(){
+  const o={doubleup:{},placements:{},gauntlet:{times:{},winners:{}},football:{s:{}},soccer:{s:{}},basketball:{s:{},winners:{},place:{}}};
+  TRIBES.forEach(t=>{o.doubleup[t.key]=g('doubleup-'+t.key);});
+  DAYS.forEach(d=>{o.placements[d]={};TRIBES.forEach(t=>{o.placements[d][t.key]=g('place-'+d+'-'+t.key);});});
+  G_ROUNDS.forEach(r=>r.forEach(m=>{o.gauntlet.times['a'+m.key]=g('gt-'+m.key+'-t1');o.gauntlet.times['b'+m.key]=g('gt-'+m.key+'-t2');o.gauntlet.winners[m.key]=g('gw-'+m.key);}));
+  RR.forEach(m=>{o.football.s['a'+m.key]=g('football-'+m.key+'-t1');o.football.s['b'+m.key]=g('football-'+m.key+'-t2');o.soccer.s['a'+m.key]=g('soccer-'+m.key+'-t1');o.soccer.s['b'+m.key]=g('soccer-'+m.key+'-t2');});
+  BB.forEach(m=>{o.basketball.s['a'+m.key]=g('bb-'+m.key+'-t1');o.basketball.s['b'+m.key]=g('bb-'+m.key+'-t2');o.basketball.winners[m.key]=g('bbw-'+m.key);});
+  TRIBES.forEach(t=>{o.basketball.place[t.key]=g('bbplace-'+t.key);});
+  return o;
+}
+function g(id){const el=document.getElementById(id);return el?el.value:'';}
+function sv(id,val){const el=document.getElementById(id);if(el&&val!==undefined&&val!==null)el.value=val;}
+
+// ── JSONBIN SAVE ──────────────────────────────────
+function save(){
+  if(_suppressWrite) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async ()=>{
+    setSaveText('Saving…','var(--muted)');
+    try{
+      const res = await fetch(JSONBIN_URL, {
+        method: 'PUT',
+        headers: {'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY,'X-Bin-Versioning':'false'},
+        body: JSON.stringify(collectState())
+      });
+      if(!res.ok) throw new Error('save failed');
+      showSaved();
+    } catch(e){ setSaveText('Save error ✗','var(--red)'); }
+  }, 800);
+}
+
+function setSaveText(text, color){
+  const tx = document.getElementById('save-text');
+  const el = document.getElementById('save-status');
+  if(tx) tx.textContent = text;
+  if(el) el.style.color = color || '';
+}
+
+function showSaved(){
+  const el = document.getElementById('save-status');
+  el.classList.add('saved');
+  document.getElementById('save-text').textContent = 'Saved ✓';
+  setTimeout(()=>{ el.classList.remove('saved'); setSaveText('Ready',''); }, 2000);
+}
+
+// ── JSONBIN LOAD ──────────────────────────────────
+async function loadAndRestore(){
+  setSaveText('Loading…','var(--muted)');
+  try{
+    const res = await fetch(JSONBIN_URL+'/latest', {
+      headers:{'X-Master-Key':JSONBIN_KEY,'X-Bin-Meta':'false'}
+    });
+    if(!res.ok) throw new Error('load failed');
+    const data = await res.json();
+    _remoteData = data;
+    restoreFromData(data);
+    setSaveText('Ready','');
+  } catch(e){ setSaveText('Load error','var(--red)'); }
+}
+
+// ── RESTORE FROM SNAPSHOT ─────────────────────────
+function restoreFromData(o){
+  if(!o) return;
+  _suppressWrite = true;
+  TRIBES.forEach(t=>{ if(o.doubleup) sv('doubleup-'+t.key, o.doubleup[t.key]); });
+  DAYS.forEach(d=>{ if(o.placements&&o.placements[d]) TRIBES.forEach(t=>{ sv('place-'+d+'-'+t.key, o.placements[d][t.key]); }); });
+  G_ROUNDS.forEach(r=>r.forEach(m=>{ if(o.gauntlet){ sv('gt-'+m.key+'-t1', o.gauntlet.times&&o.gauntlet.times['a'+m.key]); sv('gt-'+m.key+'-t2', o.gauntlet.times&&o.gauntlet.times['b'+m.key]); sv('gw-'+m.key, o.gauntlet.winners&&o.gauntlet.winners[m.key]); }}));
+  RR.forEach(m=>{ if(o.football&&o.football.s){ sv('football-'+m.key+'-t1',o.football.s['a'+m.key]); sv('football-'+m.key+'-t2',o.football.s['b'+m.key]); } if(o.soccer&&o.soccer.s){ sv('soccer-'+m.key+'-t1',o.soccer.s['a'+m.key]); sv('soccer-'+m.key+'-t2',o.soccer.s['b'+m.key]); } });
+  BB.forEach(m=>{ if(o.basketball){ if(o.basketball.s){ sv('bb-'+m.key+'-t1',o.basketball.s['a'+m.key]); sv('bb-'+m.key+'-t2',o.basketball.s['b'+m.key]); } sv('bbw-'+m.key, o.basketball.winners&&o.basketball.winners[m.key]); } });
+  TRIBES.forEach(t=>{ if(o.basketball&&o.basketball.place) sv('bbplace-'+t.key, o.basketball.place[t.key]); });
+  renderScoreboard(); updateGStandings(); updateRR('football'); updateRR('soccer'); updateBBStandings(); renderHome();
+  _suppressWrite = false;
+}
+
+// ── SCORES ───────────────────────────────────────
+// Double Up coin: maps tribe key → event key (soccer|football|gauntlet|amazingrace)
+
+function getTribeDoubleUp(tribe){return g('doubleup-'+tribe)||'';}
+
+function getEventPts(event,place){
+  if(place<1||place>4)return 0;
+  return EVENT_PTS[event][place-1];
+}
+
+function getTribeTotal(tribe){
+  const doubleEvent=getTribeDoubleUp(tribe);
+  let total=0;
+  DAYS.forEach(d=>{
+    const event=DAY_TO_EVENT[d];
+    const p=parseInt(g('place-'+d+'-'+tribe))||0;
+    if(p>=1&&p<=4){
+      let pts=getEventPts(event,p);
+      if(doubleEvent&&doubleEvent===event)pts*=2;
+      total+=pts;
+    }
+  });
+  // Basketball bonus — never doubled
+  const bp=parseInt(g('bbplace-'+tribe))||0;
+  if(bp>=1&&bp<=4)total+=EVENT_PTS.basketball[bp-1];
+  return total;
+}
+
+function renderHome(){
+  const sorted=[...TRIBES].sort((a,b)=>getTribeTotal(b.key)-getTribeTotal(a.key));
+  document.getElementById('home-standings').innerHTML=sorted.map((t,i)=>`
+    <div class="tribe-row">
+      ${dot(t.name,11)}
+      <div class="tribe-name">${t.name}</div>
+      <div class="tribe-score">${getTribeTotal(t.key)}</div>
+      <div class="rank ${i===0?'gold':''}">#${i+1}</div>
+    </div>`).join('');
+}
+
+function renderDoubleUp(){
+  document.getElementById('doubleup-section').innerHTML=`
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <span style="font-size:20px">🪙</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;text-transform:uppercase">Double Up Coins</div>
+          <div class="label" style="margin-top:2px">Each tribe picks one event to double their points</div>
+        </div>
+      </div>
+      ${TRIBES.map(t=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+          ${dot(t.name,11)}
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;flex:1;text-transform:uppercase">${t.name}</div>
+          <select id="doubleup-${t.key}" onchange="onDoubleUpChange()" style="width:auto;font-size:13px;padding:5px 24px 5px 8px">
+            <option value="">— not used —</option>
+            <option value="soccer">⚽ Soccer</option>
+            <option value="football">🏈 Football</option>
+            <option value="gauntlet">⚡ Gauntlet</option>
+            <option value="amazingrace">🏃 Amazing Race</option>
+          </select>
+        </div>`).join('')}
+    </div>`;
+}
+
+function renderScoreboard(){
+  renderDoubleUp();
+  // Restore double-up values from last remote snapshot
+  if(_remoteData&&_remoteData.doubleup)TRIBES.forEach(t=>{sv('doubleup-'+t.key,_remoteData.doubleup[t.key]);});
+  renderDayCards();
+  renderFinalStandings();
+}
+
+function onDoubleUpChange(){renderDayCards();renderFinalStandings();renderHome();save();}
+function onPlaceChange(){renderFinalStandings();renderHome();save();}
+
+function renderDayCards(){
+  const dayCardLabel={tue:'Tuesday — ⚽ Soccer',wed:'Wednesday — ⚡ Gauntlet',thu:'Thursday — 🏈 Football',fri:'Friday — 🏃 Amazing Race'};
+  document.getElementById('day-entry').innerHTML=DAYS.map(d=>{
+    const event=DAY_TO_EVENT[d];
+    const epts=EVENT_PTS[event];
+    return `<div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <div class="label">${dayCardLabel[d]}</div>
+        <span style="font-size:11px;color:var(--muted)">${epts[0]}/${epts[1]}/${epts[2]}/${epts[3]}/${epts[4]} pts</span>
+      </div>
+      ${TRIBES.map(t=>{
+        const du=getTribeDoubleUp(t.key);
+        const isDouble=du&&du===event;
+        return `<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border)">
+          ${dot(t.name)}
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;flex:1;text-transform:uppercase">${t.name}</div>
+          ${isDouble?`<span style="font-size:10px;font-weight:700;background:#854F0B;color:#FAC775;padding:2px 6px;border-radius:4px">2×</span>`:''}
+          <select id="place-${d}-${t.key}" onchange="onPlaceChange()" style="width:auto;font-size:13px;padding:5px 24px 5px 8px">
+            <option value="">—</option>
+            <option value="1">1st · ${isDouble?epts[0]*2:epts[0]}pts</option>
+            <option value="2">2nd · ${isDouble?epts[1]*2:epts[1]}pts</option>
+            <option value="3">3rd · ${isDouble?epts[2]*2:epts[2]}pts</option>
+            <option value="4">4th · ${isDouble?epts[3]*2:epts[3]}pts</option>
+            <option value="5">5th · ${isDouble?epts[4]*2:epts[4]}pts</option>
+          </select>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+  // Restore saved placements from last remote snapshot
+  if(_remoteData&&_remoteData.placements)DAYS.forEach(d=>{if(_remoteData.placements[d])TRIBES.forEach(t=>{sv('place-'+d+'-'+t.key,_remoteData.placements[d][t.key]);});});
+}
+
+function renderFinalStandings(){
+  const sorted=[...TRIBES].map(t=>({...t,total:getTribeTotal(t.key)})).sort((a,b)=>b.total-a.total);
+  document.getElementById('final-standings').innerHTML=sorted.map((t,i)=>`
+    <div class="tribe-row">
+      ${dot(t.name,11)}
+      <div class="tribe-name">${t.name}</div>
+      <div class="tribe-score">${t.total}</div>
+      <div class="rank ${i===0?'gold':''}">#${i+1}</div>
+    </div>`).join('');
+}
+
+// ── BASKETBALL ───────────────────────────────────
+function renderBasketball(){
+  document.getElementById('bb-bracket').innerHTML=BB.map(m=>`
+    <div class="match-card">
+      <div class="match-header">${m.t1} vs ${m.t2}</div>
+      <div class="match-row">
+        <div style="display:flex;align-items:center;gap:5px;flex:1">${dot(m.t1,9)}<span class="t-label">${m.t1}</span></div>
+        <input type="number" class="score-inp" id="bb-${m.key}-t1" min="0" placeholder="0" oninput="updateBBStandings();save()">
+        <span class="vs">—</span>
+        <input type="number" class="score-inp" id="bb-${m.key}-t2" min="0" placeholder="0" oninput="updateBBStandings();save()">
+        <div style="display:flex;align-items:center;gap:5px;flex:1;justify-content:flex-end"><span class="t-label" style="text-align:right">${m.t2}</span>${dot(m.t2,9)}</div>
+      </div>
+      <div class="winner-row">
+        <span class="label">Winner:</span>
+        <select id="bbw-${m.key}" onchange="updateBBStandings();save()">
+          <option value="">— select —</option>
+          <option value="${m.t1}">${m.t1}</option>
+          <option value="${m.t2}">${m.t2}</option>
+        </select>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('bb-points-entry').innerHTML=TRIBES.map(t=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+      ${dot(t.name,10)}
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;flex:1;text-transform:uppercase">${t.name}</div>
+      <select id="bbplace-${t.key}" onchange="onPlaceChange()" style="width:auto;font-size:13px;padding:5px 24px 5px 8px">
+        <option value="">— place —</option>
+        <option value="1">1st · 6pts</option>
+        <option value="2">2nd · 5pts</option>
+        <option value="3">3rd · 4pts</option>
+        <option value="4">4th · 3pts</option>
+        <option value="5">5th · 2pts</option>
+      </select>
+    </div>`).join('');
+  updateBBStandings();
+}
+
+function updateBBStandings(){
+  const W={Purple:0,Green:0,Yellow:0,Red:0,Blue:0},L={Purple:0,Green:0,Yellow:0,Red:0,Blue:0},D={Purple:0,Green:0,Yellow:0,Red:0,Blue:0};
+  const GF={Purple:0,Green:0,Yellow:0,Red:0,Blue:0},GA={Purple:0,Green:0,Yellow:0,Red:0,Blue:0};
+  BB.forEach(m=>{
+    const e1=document.getElementById('bb-'+m.key+'-t1'),e2=document.getElementById('bb-'+m.key+'-t2');
+    if(!e1||!e2||(!e1.value&&!e2.value))return;
+    const s1=parseInt(e1.value)||0,s2=parseInt(e2.value)||0;
+    GF[m.t1]+=s1;GF[m.t2]+=s2;GA[m.t1]+=s2;GA[m.t2]+=s1;
+    const w=g('bbw-'+m.key);
+    if(w===m.t1){W[m.t1]++;L[m.t2]++;}
+    else if(w===m.t2){W[m.t2]++;L[m.t1]++;}
+    else if(e1.value&&e2.value){D[m.t1]++;D[m.t2]++;}
+  });
+  const pts=t=>W[t]*3+D[t];
+  const sorted=[...TRIBES].sort((a,b)=>{const d=pts(b.name)-pts(a.name);return d!==0?d:(GF[b.name]-GA[b.name])-(GF[a.name]-GA[a.name]);});
+  document.getElementById('bb-standings').innerHTML=`
+    <tr><th>#</th><th>Tribe</th><th>W</th><th>D</th><th>L</th><th>+/-</th><th>Pts</th></tr>
+    ${sorted.map((t,i)=>`<tr>
+      <td><b style="color:${i===0?'var(--yellow)':'var(--muted)'};font-family:'Barlow Condensed',sans-serif">${i+1}</b></td>
+      <td><div style="display:flex;align-items:center;gap:5px">${dot(t.name,9)}<b style="font-family:'Barlow Condensed',sans-serif;font-size:13px;text-transform:uppercase">${t.name}</b></div></td>
+      <td style="color:var(--green);font-weight:600">${W[t.name]}</td>
+      <td style="color:var(--muted)">${D[t.name]}</td>
+      <td style="color:var(--red)">${L[t.name]}</td>
+      <td style="color:var(--muted);font-size:12px">${GF[t.name]-GA[t.name]>=0?'+':''}${GF[t.name]-GA[t.name]}</td>
+      <td style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;color:var(--orange)">${pts(t.name)}</td>
+    </tr>`).join('')}`;
+}
+
+// ── GAUNTLET ─────────────────────────────────────
+function renderGauntlet(){
+  G_ROUNDS.forEach((round,ri)=>{
+    const el=document.getElementById('g-r'+(ri+1));
+    if(!el)return;
+    el.innerHTML=round.map(m=>`
+      <div style="padding:10px 0;border-bottom:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:5px;flex:1">${dot(m.t1,9)}<span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase">${m.t1}</span></div>
+          <input type="text" id="gt-${m.key}-t1" placeholder="0:00" style="width:52px;text-align:center;font-size:13px;padding:5px 4px" oninput="updateGStandings();save()">
+          <span class="vs">vs</span>
+          <input type="text" id="gt-${m.key}-t2" placeholder="0:00" style="width:52px;text-align:center;font-size:13px;padding:5px 4px" oninput="updateGStandings();save()">
+          <div style="display:flex;align-items:center;gap:5px;flex:1;justify-content:flex-end"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase">${m.t2}</span>${dot(m.t2,9)}</div>
+        </div>
+        <div class="winner-row">
+          <span class="label">Winner:</span>
+          <select id="gw-${m.key}" onchange="updateGStandings();save()">
+            <option value="">—</option>
+            <option value="${m.t1}">${m.t1}</option>
+            <option value="${m.t2}">${m.t2}</option>
+          </select>
+        </div>
+      </div>`).join('');
+  });
+  document.getElementById('station-list').innerHTML=STATIONS.map((s,i)=>`
+    <div class="station-item"><span class="station-num">${i+1}</span><span>${s}</span></div>`).join('');
+  updateGStandings();
+}
+
+function t2s(t){if(!t||!t.includes(':'))return Infinity;const[m,s]=t.split(':').map(Number);return m*60+(s||0);}
+
+function updateGStandings(){
+  const W={Purple:0,Green:0,Yellow:0,Red:0,Blue:0},times={Purple:[],Green:[],Yellow:[],Red:[],Blue:[]};
+  G_ROUNDS.forEach(r=>r.forEach(m=>{
+    const w=g('gw-'+m.key),t1=g('gt-'+m.key+'-t1'),t2=g('gt-'+m.key+'-t2');
+    if(w)W[w]=(W[w]||0)+1;
+    if(t1&&t1!=='0:00')times[m.t1].push(t2s(t1));
+    if(t2&&t2!=='0:00')times[m.t2].push(t2s(t2));
+  }));
+  const best=t=>{const a=times[t];if(!a.length)return'—';const b=Math.min(...a);return Math.floor(b/60)+':'+(b%60<10?'0':'')+b%60;};
+  const sorted=[...TRIBES].sort((a,b)=>{const d=W[b.name]-W[a.name];return d!==0?d:Math.min(...(times[a.name].length?times[a.name]:[Infinity]))-Math.min(...(times[b.name].length?times[b.name]:[Infinity]));});
+  document.getElementById('g-standings').innerHTML=`
+    <tr><th>#</th><th>Tribe</th><th>W</th><th>L</th><th>Best</th></tr>
+    ${sorted.map((t,i)=>`<tr>
+      <td><b style="color:${i===0?'var(--yellow)':'var(--muted)'};font-family:'Barlow Condensed',sans-serif">${i+1}</b></td>
+      <td><div style="display:flex;align-items:center;gap:5px">${dot(t.name,9)}<b style="font-family:'Barlow Condensed',sans-serif;font-size:13px;text-transform:uppercase">${t.name}</b></div></td>
+      <td style="color:var(--green);font-weight:600">${W[t.name]||0}</td>
+      <td style="color:var(--muted)">${3-(W[t.name]||0)}</td>
+      <td style="font-size:13px;color:var(--orange)">${best(t.name)}</td>
+    </tr>`).join('')}`;
+}
+
+// ── ROUND ROBIN SCHEDULE VIEWER ──────────────────
+const RR_ROUNDS=[
+  [{t1:'Purple',t2:'Green'},{t1:'Yellow',t2:'Blue'}],        // Red bye
+  [{t1:'Purple',t2:'Yellow'},{t1:'Red',t2:'Blue'}],          // Green bye
+  [{t1:'Purple',t2:'Red'},{t1:'Green',t2:'Blue'}],           // Yellow bye
+  [{t1:'Purple',t2:'Blue'},{t1:'Green',t2:'Yellow'}],        // Red bye
+  [{t1:'Red',t2:'Yellow'},{t1:'Green',t2:'Blue'}]            // Purple bye
+];
+
+function showRRRound(sport,round){
+  const matches=RR_ROUNDS[parseInt(round)-1];
+  const el=document.getElementById(sport+'-rr-schedule');
+  if(!el)return;
+  el.innerHTML=`
+    <div class="label" style="margin-bottom:10px">Round ${round} Matchups</div>
+    ${matches.map(m=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:7px;flex:1">
+          ${dot(m.t1,11)}
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;text-transform:uppercase">${m.t1}</span>
+        </div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--muted);font-weight:600">VS</span>
+        <div style="display:flex;align-items:center;gap:7px;flex:1;justify-content:flex-end">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;text-transform:uppercase">${m.t2}</span>
+          ${dot(m.t2,11)}
+        </div>
+      </div>`).join('')}`;
+}
+
+
+function renderRR(sport){
+  document.getElementById(sport+'-bracket').innerHTML=`
+    <div class="card" style="display:flex;flex-direction:column;gap:2px">
+      <div class="label" style="margin-bottom:8px">Match results</div>
+      ${RR.map(m=>`
+        <div class="match-card">
+          <div class="match-header">${m.t1} vs ${m.t2}</div>
+          <div class="match-row">
+            <div style="display:flex;align-items:center;gap:5px;flex:1">${dot(m.t1,9)}<span class="t-label">${m.t1}</span></div>
+            <input type="number" class="score-inp" id="${sport}-${m.key}-t1" min="0" placeholder="0" oninput="updateRR('${sport}');save()">
+            <span class="vs">—</span>
+            <input type="number" class="score-inp" id="${sport}-${m.key}-t2" min="0" placeholder="0" oninput="updateRR('${sport}');save()">
+            <div style="display:flex;align-items:center;gap:5px;flex:1;justify-content:flex-end"><span class="t-label" style="text-align:right">${m.t2}</span>${dot(m.t2,9)}</div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+  updateRR(sport);
+}
+
+function updateRR(sport){
+  const W={Purple:0,Green:0,Yellow:0,Red:0,Blue:0},L={Purple:0,Green:0,Yellow:0,Red:0,Blue:0},D={Purple:0,Green:0,Yellow:0,Red:0,Blue:0};
+  const GF={Purple:0,Green:0,Yellow:0,Red:0,Blue:0},GA={Purple:0,Green:0,Yellow:0,Red:0,Blue:0};
+  RR.forEach(m=>{
+    const e1=document.getElementById(sport+'-'+m.key+'-t1'),e2=document.getElementById(sport+'-'+m.key+'-t2');
+    if(!e1||!e2||(!e1.value&&!e2.value))return;
+    const s1=parseInt(e1.value)||0,s2=parseInt(e2.value)||0;
+    GF[m.t1]+=s1;GF[m.t2]+=s2;GA[m.t1]+=s2;GA[m.t2]+=s1;
+    if(s1>s2){W[m.t1]++;L[m.t2]++;}else if(s2>s1){W[m.t2]++;L[m.t1]++;}else{D[m.t1]++;D[m.t2]++;}
+  });
+  const pts=t=>W[t]*3+D[t];
+  const gd=t=>GF[t]-GA[t];
+  const sorted=[...TRIBES].sort((a,b)=>{const d=pts(b.name)-pts(a.name);return d!==0?d:gd(b.name)-gd(a.name);});
+
+  // Main standings table
+  document.getElementById(sport+'-standings').innerHTML=`
+    <tr><th>#</th><th>Tribe</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>
+    ${sorted.map((t,i)=>{
+      const gdVal=gd(t.name);
+      const gdColor=gdVal>0?'var(--green)':gdVal<0?'var(--red)':'var(--muted)';
+      return `<tr>
+        <td><b style="color:${i===0?'var(--yellow)':'var(--muted)'};font-family:'Barlow Condensed',sans-serif">${i+1}</b></td>
+        <td><div style="display:flex;align-items:center;gap:5px">${dot(t.name,9)}<b style="font-family:'Barlow Condensed',sans-serif;font-size:13px;text-transform:uppercase">${t.name}</b></div></td>
+        <td style="color:var(--green);font-weight:600">${W[t.name]}</td>
+        <td style="color:var(--muted)">${D[t.name]}</td>
+        <td style="color:var(--red)">${L[t.name]}</td>
+        <td style="font-weight:700;color:${gdColor}">${gdVal>=0?'+':''}${gdVal}</td>
+        <td style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:16px;color:var(--orange)">${pts(t.name)}</td>
+      </tr>`;
+    }).join('')}`;
+
+  // Tiebreaker breakdown card
+  const tbEl=document.getElementById(sport+'-tiebreaker');
+  if(!tbEl)return;
+
+  // Check if any tribes are level on points
+  const tiedGroups=[];
+  const checked=new Set();
+  sorted.forEach(t=>{
+    if(checked.has(t.name))return;
+    const tied=sorted.filter(x=>pts(x.name)===pts(t.name));
+    if(tied.length>1){tiedGroups.push(tied);tied.forEach(x=>checked.add(x.name));}
+  });
+
+  if(tiedGroups.length===0){
+    tbEl.innerHTML=`<div class="info-box" style="color:var(--green)">✅ No ties — standings are clear</div>`;
+  } else {
+    tbEl.innerHTML=tiedGroups.map(group=>{
+      const names=group.map(t=>t.name).join(' & ');
+      const gdSorted=[...group].sort((a,b)=>gd(b.name)-gd(a.name));
+      return `<div class="info-box" style="margin-bottom:8px">
+        <div style="color:var(--yellow);font-weight:700;margin-bottom:6px">⚠️ Tie: ${names} (${pts(group[0].name)} pts)</div>
+        <div style="color:var(--muted);font-size:11px;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.4px">Tiebreaker → Goal Differential</div>
+        ${gdSorted.map((t,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:4px 0">
+          ${dot(t.name,9)}
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;flex:1">${t.name}</span>
+          <span style="font-weight:700;color:${gd(t.name)>=0?'var(--green)':'var(--red)'}">GD: ${gd(t.name)>=0?'+':''}${gd(t.name)}</span>
+          ${i===0?'<span style="font-size:10px;font-weight:700;background:#854F0B;color:#FAC775;padding:2px 6px;border-radius:4px">LEADS TB</span>':''}
+        </div>`).join('')}
+      </div>`;
+    }).join('');
+  }
+}
+
+// ── TIMER ─────────────────────────────────────────
+let timerInterval=null;
+let timerSeconds=420; // 7 min default
+let timerTotal=420;
+let timerRunning=false;
+let timerHalf=1;
+let timerPreset=7;
+let timerDone=false;
+
+const TIMER_GREEN='#22C55E';
+const TIMER_YELLOW='#EAB308';
+const TIMER_RED='#EF4444';
+
+function timerColor(secsLeft,total){
+  const pct=secsLeft/total;
+  if(pct>0.5)return TIMER_GREEN;
+  if(pct>0.2)return TIMER_YELLOW;
+  return TIMER_RED;
+}
+
+function timerFormat(s){
+  const m=Math.floor(s/60);
+  const sec=s%60;
+  return m+':'+(sec<10?'0':'')+sec;
+}
+
+function timerRender(){
+  const col=timerDone?TIMER_RED:timerColor(timerSeconds,timerTotal);
+  document.getElementById('timer-display').textContent=timerFormat(timerSeconds);
+  document.getElementById('timer-display').style.color=col;
+  const pct=timerTotal>0?(timerSeconds/timerTotal)*100:0;
+  document.getElementById('timer-progress').style.width=pct+'%';
+  document.getElementById('timer-progress').style.background=col;
+  // half dots
+  document.getElementById('hdot-1').style.background=timerHalf>=1?'var(--orange)':'var(--border)';
+  document.getElementById('hdot-2').style.background=timerHalf>=2?'var(--orange)':'var(--border)';
+  document.getElementById('timer-half-label').textContent=timerHalf<=2?'Half '+timerHalf+' of 2':'Game Over';
+}
+
+function timerStartStop(){
+  if(timerDone)return;
+  if(timerRunning){
+    clearInterval(timerInterval);
+    timerRunning=false;
+    document.getElementById('timer-start-btn').textContent='Resume';
+    document.getElementById('timer-start-btn').style.background='var(--orange)';
+  } else {
+    timerRunning=true;
+    document.getElementById('timer-start-btn').textContent='Pause';
+    document.getElementById('timer-start-btn').style.background='var(--red)';
+    timerInterval=setInterval(()=>{
+      if(timerSeconds>0){
+        timerSeconds--;
+        timerRender();
+      } else {
+        clearInterval(timerInterval);
+        timerRunning=false;
+        timerDone=true;
+        timerEndBuzz();
+      }
+    },1000);
+  }
+}
+
+function timerEndBuzz(){
+  // Flash screen
+  const card=document.getElementById('timer-clock-card');
+  let flashes=0;
+  const flash=setInterval(()=>{
+    card.style.background=flashes%2===0?'#3A0000':'var(--card)';
+    flashes++;
+    if(flashes>7){clearInterval(flash);card.style.background='var(--card)';}
+  },200);
+  // Buzzer sound via Web Audio
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [0,0.3,0.6].forEach(offset=>{
+      const o=ctx.createOscillator();
+      const g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.type='square';o.frequency.value=440;
+      g.gain.setValueAtTime(0.3,ctx.currentTime+offset);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+offset+0.25);
+      o.start(ctx.currentTime+offset);
+      o.stop(ctx.currentTime+offset+0.25);
+    });
+  }catch(e){}
+  // Show halftime or game over UI
+  document.getElementById('timer-start-btn').textContent='Start';
+  document.getElementById('timer-start-btn').style.background='var(--green)';
+  document.getElementById('timer-display').textContent='0:00';
+  if(timerHalf===1){
+    document.getElementById('timer-halftime-banner').style.display='block';
+    document.getElementById('timer-next-btn').style.display='block';
+  } else {
+    document.getElementById('timer-half-label').textContent='Game Over 🏁';
+    document.getElementById('timer-next-btn').style.display='none';
+  }
+  timerRender();
+}
+
+function timerNextHalf(){
+  timerHalf=2;
+  timerSeconds=timerTotal;
+  timerDone=false;
+  timerRunning=false;
+  clearInterval(timerInterval);
+  document.getElementById('timer-halftime-banner').style.display='none';
+  document.getElementById('timer-next-btn').style.display='none';
+  document.getElementById('timer-start-btn').textContent='Start';
+  document.getElementById('timer-start-btn').style.background='var(--green)';
+  document.getElementById('timer-clock-card').style.background='var(--card)';
+  timerRender();
+}
+
+function timerReset(){
+  clearInterval(timerInterval);
+  timerRunning=false;
+  timerDone=false;
+  timerHalf=1;
+  timerSeconds=timerTotal;
+  document.getElementById('timer-halftime-banner').style.display='none';
+  document.getElementById('timer-next-btn').style.display='none';
+  document.getElementById('timer-start-btn').textContent='Start';
+  document.getElementById('timer-start-btn').style.background='var(--green)';
+  document.getElementById('timer-clock-card').style.background='var(--card)';
+  timerRender();
+}
+
+function setPreset(min){
+  clearInterval(timerInterval);
+  timerRunning=false;timerDone=false;timerHalf=1;
+  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('custom-time-row').style.display='none';
+  if(min===0){
+    document.getElementById('pre-custom').classList.add('active');
+    document.getElementById('custom-time-row').style.display='flex';
+    return;
+  }
+  timerPreset=min;
+  timerTotal=min*60;
+  timerSeconds=timerTotal;
+  document.getElementById('pre-'+min)?.classList.add('active');
+  document.getElementById('timer-halftime-banner').style.display='none';
+  document.getElementById('timer-next-btn').style.display='none';
+  document.getElementById('timer-start-btn').textContent='Start';
+  document.getElementById('timer-start-btn').style.background='var(--green)';
+  timerRender();
+}
+
+function applyCustom(){
+  const m=parseInt(document.getElementById('custom-minutes').value)||0;
+  const s=parseInt(document.getElementById('custom-seconds').value)||0;
+  const total=m*60+s;
+  if(total<=0)return;
+  clearInterval(timerInterval);
+  timerRunning=false;timerDone=false;timerHalf=1;
+  timerTotal=total;timerSeconds=total;
+  document.getElementById('timer-halftime-banner').style.display='none';
+  document.getElementById('timer-next-btn').style.display='none';
+  document.getElementById('timer-start-btn').textContent='Start';
+  document.getElementById('timer-start-btn').style.background='var(--green)';
+  timerRender();
+}
+
+// init timer display
+timerRender();
+document.getElementById('pre-7').classList.add('active');
+
+
+renderScoreboard();
+renderGauntlet();
+renderRR('football');
+renderRR('soccer');
+renderBasketball();
+showRRRound('football',1);
+showRRRound('soccer',1);
+showRRRound('gauntlet',1);
+loadAndRestore();
+renderHome();
+</script>
+</body>
+</html>
