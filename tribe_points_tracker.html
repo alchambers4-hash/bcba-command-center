@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tribe Points</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#F0F0F0;min-height:100vh;padding-bottom:90px;}
+
+/* NAV */
+.nav{display:flex;position:sticky;top:0;z-index:200;background:#111;padding:0 4px;overflow-x:auto;scrollbar-width:none;gap:3px;}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{flex:1;min-width:68px;padding:13px 6px 11px;background:none;border:none;color:#555;font-family:'Nunito',sans-serif;font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;border-bottom:4px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;}
+.nav-btn.active{color:#fff;border-bottom-color:var(--tribe-color,#fff)}
+.nav-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.screen{display:none}.screen.active{display:block}
+
+/* HOME HERO */
+.home-hero{background:#111;padding:28px 20px 24px;text-align:center;}
+.home-hero-title{font-family:'Black Han Sans',sans-serif;font-size:38px;color:#fff;letter-spacing:2px;text-transform:uppercase;line-height:1;}
+.home-hero-sub{font-size:12px;font-weight:700;color:#888;letter-spacing:3px;text-transform:uppercase;margin-top:6px;}
+
+/* HOME GRID */
+.home-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px;}
+.home-card{border-radius:16px;padding:16px 16px 14px;position:relative;overflow:hidden;cursor:pointer;transition:transform .15s;box-shadow:0 4px 0 rgba(0,0,0,.2);}
+.home-card:active{transform:scale(.97)}
+.home-card-top{display:flex;align-items:flex-start;justify-content:space-between;}
+.home-card-name{font-family:'Black Han Sans',sans-serif;font-size:20px;color:#fff;text-transform:uppercase;letter-spacing:1px;text-shadow:0 1px 3px rgba(0,0,0,.25);}
+.crown{font-size:22px;line-height:1;filter:drop-shadow(0 1px 3px rgba(0,0,0,.3));animation:crownpop .4s ease;}
+@keyframes crownpop{0%{transform:scale(0) rotate(-20deg)}70%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
+.home-card-rank{font-family:'Black Han Sans',sans-serif;font-size:20px;color:rgba(255,255,255,.3);line-height:1;}
+.home-card-bal{font-family:'Black Han Sans',sans-serif;font-size:34px;color:#fff;line-height:1;margin-top:6px;text-shadow:0 2px 4px rgba(0,0,0,.2);}
+.home-card-delta{font-size:12px;font-weight:800;margin-top:3px;color:rgba(255,255,255,.75);}
+.home-card-delta.up{color:#A0FFC0}.home-card-delta.dn{color:#FFB0A0}
+
+/* PROGRESS BAR */
+.prog-wrap{margin-top:10px;}
+.prog-track{height:7px;background:rgba(0,0,0,.2);border-radius:99px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:99px;background:rgba(255,255,255,.6);transition:width .5s ease;}
+.prog-label{font-size:10px;font-weight:800;color:rgba(255,255,255,.6);margin-top:3px;letter-spacing:.5px;}
+
+/* TRIBE SCREEN */
+.tribe-hero-bg{padding:32px 20px 28px;position:relative;}
+.tribe-hero-bg::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-55deg,rgba(255,255,255,.06) 0,rgba(255,255,255,.06) 12px,transparent 12px,transparent 26px);pointer-events:none;}
+.tribe-hero-name{font-family:'Black Han Sans',sans-serif;font-size:52px;color:#fff;text-transform:uppercase;letter-spacing:3px;line-height:1;text-shadow:0 3px 8px rgba(0,0,0,.25);position:relative;}
+.tribe-hero-lbl{font-size:11px;font-weight:800;color:rgba(255,255,255,.65);letter-spacing:3px;text-transform:uppercase;margin-top:6px;position:relative;}
+.balance-widget{display:flex;align-items:center;gap:16px;margin-top:18px;position:relative;}
+.bal-btn{width:56px;height:56px;border-radius:50%;font-size:30px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 0 rgba(0,0,0,.25);transition:transform .1s,box-shadow .1s;color:#fff;font-family:'Black Han Sans',sans-serif;line-height:1;}
+.bal-btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.balance-num{flex:1;text-align:center;font-family:'Black Han Sans',sans-serif;font-size:68px;color:#fff;line-height:1;text-shadow:0 3px 8px rgba(0,0,0,.2);}
+.bal-hint{text-align:center;font-size:11px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-top:8px;position:relative;}
+
+/* ENTRY CARD */
+.entry-card{margin:16px;background:#fff;border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+.entry-card-label{font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#333;margin-bottom:12px;}
+.entry-textarea{width:100%;background:#F7F7F7;border:2px solid #E8E8E8;border-radius:10px;color:#111;font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;padding:10px 12px;outline:none;resize:none;min-height:72px;transition:border-color .15s;}
+.entry-textarea:focus{border-color:var(--tribe-color,#999)}
+.entry-row{display:flex;gap:10px;margin-top:10px;align-items:center;}
+.entry-num{width:100px;background:#F7F7F7;border:2px solid #E8E8E8;border-radius:10px;color:#111;font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;padding:9px 10px;outline:none;}
+.entry-num:focus{border-color:var(--tribe-color,#999)}
+.entry-num::placeholder,.entry-textarea::placeholder{color:#BBB}
+.submit-btn{flex:1;border:none;border-radius:10px;padding:11px;cursor:pointer;font-family:'Black Han Sans',sans-serif;font-size:16px;letter-spacing:1px;text-transform:uppercase;color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.2);transition:transform .1s,box-shadow .1s;}
+.submit-btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+
+/* LOG */
+.log-section{margin:0 16px 16px}
+.log-section-label{font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#333;margin-bottom:10px;}
+.log-item{background:#fff;border-radius:12px;padding:13px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px;box-shadow:0 2px 6px rgba(0,0,0,.06);border-left:5px solid var(--tribe-color,#ccc);}
+.log-body{flex:1}
+.log-text{font-size:14px;font-weight:700;color:#222;line-height:1.45}
+.log-time{font-size:11px;font-weight:600;color:#AAA;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+.log-num{font-family:'Black Han Sans',sans-serif;font-size:22px;color:var(--tribe-color,#999);flex-shrink:0;align-self:center;}
+.del-btn{background:none;border:none;color:#CCC;font-size:18px;cursor:pointer;flex-shrink:0;font-weight:900;line-height:1;padding:0;transition:color .15s;}
+.del-btn:hover{color:#EF4444}
+.log-empty{text-align:center;padding:28px 0;font-size:14px;font-weight:700;color:#AAA;}
+
+/* DARES HERO */
+.dares-hero{background:linear-gradient(135deg,#FF6B35,#D62828);padding:28px 20px 24px;text-align:center;position:relative;overflow:hidden;}
+.dares-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-55deg,rgba(255,255,255,.06) 0,rgba(255,255,255,.06) 12px,transparent 12px,transparent 26px);pointer-events:none;}
+.dares-hero-title{font-family:'Black Han Sans',sans-serif;font-size:36px;color:#fff;letter-spacing:3px;text-transform:uppercase;line-height:1;text-shadow:0 3px 8px rgba(0,0,0,.3);position:relative;}
+.dares-hero-sub{font-size:12px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:3px;text-transform:uppercase;margin-top:6px;position:relative;}
+
+/* DARE FILTER BAR */
+.dare-filters{display:flex;gap:8px;padding:14px 16px 6px;overflow-x:auto;scrollbar-width:none;}
+.dare-filters::-webkit-scrollbar{display:none}
+.filter-btn{flex-shrink:0;padding:7px 14px;border-radius:99px;border:2px solid #DDD;background:#fff;font-family:'Nunito',sans-serif;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;color:#666;transition:all .15s;}
+.filter-btn.active{background:#111;border-color:#111;color:#fff;}
+
+/* DARE CARDS */
+.dares-list{padding:10px 16px 16px;display:flex;flex-direction:column;gap:10px;}
+.dare-card{background:#fff;border-radius:16px;padding:15px 15px 13px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:6px solid #FF6B35;position:relative;transition:opacity .2s;}
+.dare-card.penalty{border-left-color:#D62828;}
+.dare-card.reward{border-left-color:#22C55E;}
+.dare-card.neutral{border-left-color:#3B82F6;}
+.dare-card.used{opacity:.45;}
+.dare-card-inner{display:flex;gap:10px;align-items:flex-start;}
+.dare-body{flex:1}
+.dare-num{font-family:'Black Han Sans',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#BBB;margin-bottom:5px;}
+.dare-text{font-size:14px;font-weight:700;color:#222;line-height:1.5;}
+.dare-pts-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;}
+.dare-pts-badge{font-family:'Black Han Sans',sans-serif;font-size:12px;padding:4px 10px;border-radius:20px;letter-spacing:.5px;}
+.pts-gain{background:#DCFCE7;color:#166534;}
+.pts-lose{background:#FEE2E2;color:#991B1B;}
+.pts-neutral{background:#DBEAFE;color:#1E40AF;}
+.pts-per{background:#FEF9C3;color:#854D0E;}
+.used-btn{flex-shrink:0;margin-top:2px;background:none;border:2px solid #DDD;border-radius:8px;padding:5px 9px;font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;color:#AAA;white-space:nowrap;transition:all .15s;}
+.dare-card.used .used-btn{background:#22C55E;border-color:#22C55E;color:#fff;}
+.dare-card[data-hidden="true"]{display:none;}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="main-nav">
+  <button class="nav-btn active" id="nav-home" style="--tribe-color:#F59E0B" onclick="goTo('home')">🏠 Home</button>
+  <button class="nav-btn" id="nav-dares" style="--tribe-color:#FF6B35" onclick="goTo('dares')">🎯 Dares</button>
+  <button class="nav-btn" id="nav-purple" style="--tribe-color:#A855F7" onclick="goTo('purple')"><span class="nav-dot" style="background:#A855F7"></span>Purple</button>
+  <button class="nav-btn" id="nav-green" style="--tribe-color:#22C55E" onclick="goTo('green')"><span class="nav-dot" style="background:#22C55E"></span>Green</button>
+  <button class="nav-btn" id="nav-yellow" style="--tribe-color:#EAB308" onclick="goTo('yellow')"><span class="nav-dot" style="background:#EAB308"></span>Yellow</button>
+  <button class="nav-btn" id="nav-red" style="--tribe-color:#EF4444" onclick="goTo('red')"><span class="nav-dot" style="background:#EF4444"></span>Red</button>
+  <button class="nav-btn" id="nav-blue" style="--tribe-color:#3B82F6" onclick="goTo('blue')"><span class="nav-dot" style="background:#3B82F6"></span>Blue</button>
+</nav>
+
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero">
+    <div class="home-hero-title">Tribe Points</div>
+    <div class="home-hero-sub">Starting balance · 2,400 pts</div>
+  </div>
+  <div class="home-grid" id="home-grid"></div>
+</div>
+
+<!-- DARES -->
+<div class="screen" id="screen-dares">
+  <div class="dares-hero">
+    <div class="dares-hero-title">🎯 Triple Dog Dare</div>
+    <div class="dares-hero-sub">All dares · point values listed</div>
+  </div>
+  <div class="dare-filters">
+    <button class="filter-btn active" onclick="filterDares('all',this)">All</button>
+    <button class="filter-btn" onclick="filterDares('reward',this)">✅ Gains</button>
+    <button class="filter-btn" onclick="filterDares('penalty',this)">❌ Penalties</button>
+    <button class="filter-btn" onclick="filterDares('neutral',this)">ℹ️ Neutral</button>
+    <button class="filter-btn" onclick="filterDares('unused',this)">🔵 Not Used</button>
+    <button class="filter-btn" onclick="filterDares('used',this)">✔️ Used</button>
+  </div>
+  <div class="dares-list" id="dares-list">
+
+    <div class="dare-card penalty" data-type="penalty" data-id="d1">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #1</div>
+          <div class="dare-text">Your team must walk backwards everywhere you go for the next 30 minutes. Time starts now.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-lose">Fail: −1,000 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d1',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d53">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #53</div>
+          <div class="dare-text">Find Josh and challenge him to an arm-wrestling competition with your best competitor.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-gain">Win: +500 pts</span><span class="dare-pts-badge pts-lose">Lose: −500 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d53',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card neutral" data-type="neutral" data-id="d127">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #127</div>
+          <div class="dare-text">During your next team game your team will start with an advantage.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-neutral">Advantage in next game</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d127',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card penalty" data-type="penalty" data-id="d25">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #25</div>
+          <div class="dare-text">Oh no!!! Your team lost 300 points.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-lose">−300 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d25',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d689">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #689</div>
+          <div class="dare-text">Using your entire team, hum a popular tune to Isaac. If he can guess what you are humming, your team earns points.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-gain">Success: +500 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d689',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d941">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #941</div>
+          <div class="dare-text">Your team gets points if you can find where the word "Maranatha" is in the Bible in the next minute. Time starts now.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-gain">Success: +200 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d941',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card penalty" data-type="penalty" data-id="d56">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #56</div>
+          <div class="dare-text">Find 3 other campers not on your team and do a donkey.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-lose">Fail: −100 pts per person</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d56',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card neutral" data-type="neutral" data-id="d75">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #75</div>
+          <div class="dare-text">As a team, play duck, duck, goose.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-neutral">No point value — just fun!</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d75',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d456">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #456</div>
+          <div class="dare-text">Human Knot: Form a circle, grab the hands of two different people (not next to you). Untangle in 5 minutes without letting go.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-per">+10 pts per person untangled</span><span class="dare-pts-badge pts-gain">Fully untangled bonus: +500 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d456',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card penalty" data-type="penalty" data-id="d17">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #17</div>
+          <div class="dare-text">Oh no!!! Your team lost 500 points.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-lose">−500 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d17',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card neutral" data-type="neutral" data-id="d23">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #23</div>
+          <div class="dare-text">Oh no!!! Your team will have a disadvantage in your next team game. If you tie, you die — the other team automatically wins.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-neutral">Disadvantage in next game</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d23',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d123">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #123</div>
+          <div class="dare-text">Charades with leaders — 10 minutes. New leader for each clue, act it out silently. Clues: (1) 3 monkeys jumping on the bed, (2) Visiting a zoo, (3) Riding a roller-coaster, (4) Making s'mores, (5) Baking a cake.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-per">+200 pts per correct guess</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d123',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d98">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #98</div>
+          <div class="dare-text">Challenge Pastor Matt to a thumb war. One team representative.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-gain">Win: +100 pts</span><span class="dare-pts-badge pts-lose">Lose: −100 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d98',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d76">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #76</div>
+          <div class="dare-text">Make a mamba line and walk around camp. Get anyone to join — they must still be linked at the end of 5 minutes.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-per">+10 pts per person still joined</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d76',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d3">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #3</div>
+          <div class="dare-text">Sneak up on a leader and scare them. If successful, that leader's team loses points. You have 5 minutes. Time starts now.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-lose">Their team: −100 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d3',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d5">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #5</div>
+          <div class="dare-text">Push-up challenge. Select one teammate. You have 2 minutes. Time starts now.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-per">+50 pts per push-up</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d5',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d174">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #174</div>
+          <div class="dare-text">Guess the middle names of these 3 people — one official guess each: Ben A. Carver · Matthew L. Rowell · Brandy M. Shamblin.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-gain">All 3 correct: +300 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d174',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d33">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #33</div>
+          <div class="dare-text">Pick your fastest player. Find another team and race — whoever hits the finish line first wins.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-gain">Win: +1,000 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d33',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card penalty" data-type="penalty" data-id="d234">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #234 — Silent Hike</div>
+          <div class="dare-text">Your team must travel to their next three destinations without speaking a single word.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-lose">Caught talking: −500 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d234',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card neutral" data-type="neutral" data-id="d61">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #61 — Rock Mascot</div>
+          <div class="dare-text">Find a small rock, draw a face, give it a name. It's your mascot for the rest of camp. Never on the ground, new caretaker after each meal.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-lose">−100 pts per violation</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d61',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d254">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #254 — Target Practice</div>
+          <div class="dare-text">Toss a crumpled piece of paper into a trash can from 10 feet away. Each teammate gets one try.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-per">+50 pts per successful basket</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d254',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d667">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #667 — Human Shadow</div>
+          <div class="dare-text">Pick one leader. Your entire team must follow them and mimic their every move for 4 minutes without being told to stop.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-gain">Success: +600 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d667',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d63">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #63 — Fan Club</div>
+          <div class="dare-text">Find a camper NOT on your team and cheer their name loudly for 30 seconds as if they just won a gold medal.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-gain">+150 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d63',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card penalty" data-type="penalty" data-id="d784">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #784 — Slow Motion Curse</div>
+          <div class="dare-text">For the next 10 minutes, your team must move and speak in slow motion.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-lose">Caught at normal speed: −200 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d784',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card penalty" data-type="penalty" data-id="d698">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #698 — Sock Puppet</div>
+          <div class="dare-text">One person on your team must wear a sock on their hand and only speak through the "puppet" for the next hour.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-lose">Failure: −300 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d698',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card penalty" data-type="penalty" data-id="d548a">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #548 — Bubble Gum Loss</div>
+          <div class="dare-text">Your team "stepped in gum." For the next 15 minutes, every team member must link arms.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-lose">Chain broken: −500 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d548a',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d548b">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #548 — Back-to-Back Get Up</div>
+          <div class="dare-text">Pair up all team members. Sit back-to-back, link arms, and stand up without using hands. Every pair must succeed.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-gain">All pairs succeed: +500 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d548b',this)">Used?</button>
+      </div>
+    </div>
+
+    <div class="dare-card reward" data-type="reward" data-id="d548c">
+      <div class="dare-card-inner">
+        <div class="dare-body">
+          <div class="dare-num">Dare #548 — Commercial Break</div>
+          <div class="dare-text">Find a leader and perform a 30-second "commercial" for a random nearby object. If the leader laughs, you earn points.</div>
+          <div class="dare-pts-row"><span class="dare-pts-badge pts-gain">Leader laughs: +400 pts</span></div>
+        </div>
+        <button class="used-btn" onclick="toggleUsed('d548c',this)">Used?</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TRIBE SCREENS -->
+<div class="screen" id="screen-purple"></div>
+<div class="screen" id="screen-green"></div>
+<div class="screen" id="screen-yellow"></div>
+<div class="screen" id="screen-red"></div>
+<div class="screen" id="screen-blue"></div>
+
+<script>
+const TRIBES=[
+  {key:'purple',name:'Purple',color:'#A855F7',dark:'#7C3AED',bg:'linear-gradient(135deg,#A855F7,#7C3AED)'},
+  {key:'green', name:'Green', color:'#22C55E',dark:'#16A34A',bg:'linear-gradient(135deg,#22C55E,#15803D)'},
+  {key:'yellow',name:'Yellow',color:'#EAB308',dark:'#CA8A04',bg:'linear-gradient(135deg,#EAB308,#B45309)'},
+  {key:'red',   name:'Red',   color:'#EF4444',dark:'#DC2626',bg:'linear-gradient(135deg,#EF4444,#B91C1C)'},
+  {key:'blue',  name:'Blue',  color:'#3B82F6',dark:'#2563EB',bg:'linear-gradient(135deg,#3B82F6,#1D4ED8)'}
+];
+const START=2400;
+const BIN_ID='6a0610cb250b1311c34e7f31';
+const API_KEY='$2a$10$kvsODecaTPsiInzLRxYxjugC4OkzX9CAavmHe5IMmU3N86tQP5J.a';
+const BIN_URL=`https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+let state={};
+let saveTimer=null;
+
+function showStatus(msg,color='#22C55E'){
+  let el=document.getElementById('sync-status');
+  if(!el){el=document.createElement('div');el.id='sync-status';Object.assign(el.style,{position:'fixed',bottom:'12px',right:'12px',background:color,color:'#fff',fontFamily:'Nunito,sans-serif',fontWeight:800,fontSize:'12px',padding:'7px 14px',borderRadius:'99px',zIndex:9999,boxShadow:'0 2px 8px rgba(0,0,0,.2)',transition:'opacity .4s'});document.body.appendChild(el);}
+  el.style.background=color;el.style.opacity='1';el.textContent=msg;
+  clearTimeout(el._t);el._t=setTimeout(()=>el.style.opacity='0',2500);
+}
+
+async function loadFromBin(){
+  showStatus('Loading...','#3B82F6');
+  try{
+    const r=await fetch(BIN_URL+'/latest',{headers:{'X-Master-Key':API_KEY}});
+    const d=await r.json();
+    state=d.record||{};
+  }catch(e){state={};}
+  TRIBES.forEach(t=>{if(!state[t.key])state[t.key]={balance:START,entries:[]};});
+  if(!state.usedDares)state.usedDares={};
+  showStatus('Loaded!','#22C55E');
+}
+
+async function saveToBin(){
+  showStatus('Saving...','#F59E0B');
+  try{
+    await fetch(BIN_URL,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':API_KEY},body:JSON.stringify(state)});
+    showStatus('Saved!','#22C55E');
+  }catch(e){showStatus('Save failed','#EF4444');}
+}
+
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(saveToBin,800);
+}
+
+const fmt=n=>Number(n).toLocaleString();
+
+// ── DARE FEATURES ─────────────────────────────
+function toggleUsed(id,btn){
+  state.usedDares[id]=!state.usedDares[id];
+  save();
+  const card=document.querySelector(`.dare-card[data-id="${id}"]`);
+  if(state.usedDares[id]){card.classList.add('used');btn.textContent='✔ Used';}
+  else{card.classList.remove('used');btn.textContent='Used?';}
+}
+
+function filterDares(type,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.dare-card').forEach(card=>{
+    const t=card.dataset.type;
+    const id=card.dataset.id;
+    const isUsed=!!state.usedDares[id];
+    let show=true;
+    if(type==='reward')show=(t==='reward');
+    else if(type==='penalty')show=(t==='penalty');
+    else if(type==='neutral')show=(t==='neutral');
+    else if(type==='used')show=isUsed;
+    else if(type==='unused')show=!isUsed;
+    card.dataset.hidden=String(!show);
+  });
+}
+
+// Restore used state on load
+function restoreUsed(){
+  Object.keys(state.usedDares).forEach(id=>{
+    if(state.usedDares[id]){
+      const card=document.querySelector(`.dare-card[data-id="${id}"]`);
+      const btn=card&&card.querySelector('.used-btn');
+      if(card){card.classList.add('used');}
+      if(btn){btn.textContent='✔ Used';}
+    }
+  });
+}
+
+// ── TRIBE SCREENS ─────────────────────────────
+function buildTribe(t){
+  document.getElementById('screen-'+t.key).innerHTML=`
+    <div class="tribe-hero-bg" style="background:${t.bg}">
+      <div class="tribe-hero-name">${t.name}</div>
+      <div class="tribe-hero-lbl">Tribe Points</div>
+      <div class="balance-widget">
+        <button class="bal-btn" onclick="chg('${t.key}',-100)" style="background:rgba(0,0,0,.25)">−</button>
+        <div class="balance-num" id="bal-${t.key}">${fmt(state[t.key].balance)}</div>
+        <button class="bal-btn" onclick="chg('${t.key}',100)" style="background:rgba(255,255,255,.25)">+</button>
+      </div>
+      <div class="bal-hint">± 100 pts per tap</div>
+    </div>
+    <div class="entry-card" style="--tribe-color:${t.color}">
+      <div class="entry-card-label">📝 New Entry</div>
+      <textarea class="entry-textarea" id="note-${t.key}" placeholder="Type your note…" rows="2"></textarea>
+      <div class="entry-row">
+        <input class="entry-num" type="number" id="num-${t.key}" placeholder="# (opt)">
+        <button class="submit-btn" style="background:${t.bg}" onclick="addEntry('${t.key}')">Log It</button>
+      </div>
+    </div>
+    <div class="log-section" style="--tribe-color:${t.color}">
+      <div class="log-section-label">Entry Log</div>
+      <div id="log-${t.key}"></div>
+    </div>`;
+  renderLog(t.key);
+}
+
+function renderBal(key){
+  const el=document.getElementById('bal-'+key);
+  if(el)el.textContent=fmt(state[key].balance);
+}
+
+function chg(key,delta){
+  state[key].balance+=delta;
+  save();renderBal(key);renderHome();
+}
+
+function addEntry(key){
+  const n=document.getElementById('note-'+key);
+  const u=document.getElementById('num-'+key);
+  const text=n.value.trim(),num=u.value.trim();
+  if(!text&&!num)return;
+  state[key].entries.unshift({id:Date.now(),text,num,
+    time:new Date().toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})
+  });
+  save();n.value='';u.value='';renderLog(key);
+}
+
+function delEntry(key,id){
+  state[key].entries=state[key].entries.filter(e=>e.id!==id);
+  save();renderLog(key);
+}
+
+function renderLog(key){
+  const el=document.getElementById('log-'+key);
+  if(!el)return;
+  const entries=state[key].entries;
+  if(!entries.length){el.innerHTML='<div class="log-empty">No entries yet!</div>';return;}
+  el.innerHTML=entries.map(e=>`
+    <div class="log-item">
+      <div class="log-body">
+        <div class="log-text">${e.text||'<span style="color:#CCC;font-style:italic">no note</span>'}</div>
+        <div class="log-time">${e.time}</div>
+      </div>
+      ${e.num?`<div class="log-num">${e.num}</div>`:''}
+      <button class="del-btn" onclick="delEntry('${key}',${e.id})">✕</button>
+    </div>`).join('');
+}
+
+// ── HOME ─────────────────────────────────────
+function renderHome(){
+  const sorted=[...TRIBES].map(t=>({...t,b:state[t.key].balance})).sort((a,b)=>b.b-a.b);
+  const maxB=Math.max(...sorted.map(t=>t.b));
+  const minB=Math.min(...sorted.map(t=>t.b));
+  const range=maxB-minB||1;
+
+  document.getElementById('home-grid').innerHTML=sorted.map((t,i)=>{
+    const diff=t.b-START;
+    const ds=(diff>0?'+':'')+fmt(diff);
+    const dc=diff>0?'up':diff<0?'dn':'';
+    const pct=Math.round(((t.b-minB)/range)*100);
+    const isLeader=i===0;
+    const topRight=isLeader
+      ?`<span class="crown">👑</span>`
+      :`<span class="home-card-rank">${i+1}</span>`;
+    return `<div class="home-card" style="background:${t.bg}" onclick="goTo('${t.key}')">
+      <div class="home-card-top">
+        <div class="home-card-name">${t.name}</div>
+        ${topRight}
+      </div>
+      <div class="home-card-bal">${fmt(t.b)}</div>
+      <div class="home-card-delta ${dc}">${diff===0?'Even':ds+' pts'}</div>
+      <div class="prog-wrap">
+        <div class="prog-track"><div class="prog-fill" style="width:${isLeader?100:Math.max(pct,6)}%"></div></div>
+        <div class="prog-label">vs field</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function goTo(s){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
+  document.getElementById('screen-'+s).classList.add('active');
+  document.getElementById('nav-'+s).classList.add('active');
+  if(s==='home')renderHome();
+}
+
+async function init(){
+  await loadFromBin();
+  TRIBES.forEach(t=>buildTribe(t));
+  restoreUsed();
+  renderHome();
+}
+init();
+</script>
+</body>
+</html>
