@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>BCBA Roster Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3d2b;
+    --forest-deep: #0f2419;
+    --forest-mid: #245235;
+    --forest-light: #3a7a50;
+    --accent: #c8a84b;
+    --accent-light: #e8c96a;
+    --accent-dim: #8a7030;
+    --light-green: #5ab070;
+    --light-green-soft: #4a9060;
+    --surface: #1e4430;
+    --surface-raised: #244d38;
+    --text: #f0ede4;
+    --text-muted: #9ab89f;
+    --border: #2d5e40;
+    --danger: #c0392b;
+    --danger-hover: #e74c3c;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --purple: #c39bd3;
+    --yellow: #f9e04a;
+    --red: #f1948a;
+    --green-team: #5ab070;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--forest-deep);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(90,176,112,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(200,168,75,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app-wrap { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+
+  /* Header */
+  header { padding: 20px 20px 0; text-align: center; }
+
+  .app-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-shadow: 0 0 30px rgba(200,168,75,0.3);
+    line-height: 1;
+  }
+
+  .app-subtitle {
+    font-size: 0.72rem;
+    letter-spacing: 4px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .gold-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 14px 0 0;
+  }
+
+  /* Tabs */
+  .tabs-wrapper {
+    padding: 16px 20px 12px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--forest-deep);
+  }
+
+  .tabs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    background: var(--forest-deep);
+    border-radius: var(--radius);
+    padding: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .tab-btn {
+    padding: 10px 2px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--text-muted);
+    position: relative;
+  }
+
+  .tab-btn::after {
+    content: attr(data-count);
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    font-size: 0.56rem;
+    background: var(--border);
+    color: var(--text-muted);
+    border-radius: 10px;
+    padding: 1px 4px;
+    font-weight: 500;
+  }
+
+  .tab-btn[data-tab="home"]::after { content: none; }
+
+  .tab-btn.active {
+    background: var(--surface-raised);
+    color: var(--accent);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .tab-btn.active::after { background: var(--accent-dim); color: var(--accent-light); }
+
+  .tab-btn[data-tab="home"].active { color: var(--accent); }
+  .tab-btn[data-team="Purple"].active { border-bottom: 2px solid #9b59b6; color: var(--purple); }
+  .tab-btn[data-team="Yellow"].active { border-bottom: 2px solid #f1c40f; color: var(--yellow); }
+  .tab-btn[data-team="Red"].active    { border-bottom: 2px solid #e74c3c; color: var(--red); }
+  .tab-btn[data-team="Green"].active  { border-bottom: 2px solid var(--light-green); color: var(--green-team); }
+
+  /* Views */
+  .view { display: none; padding: 0 20px 100px; }
+  .view.active { display: block; }
+
+  /* ── HOME VIEW ── */
+  .home-section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin: 4px 0 12px;
+  }
+
+  /* Search */
+  .search-wrap {
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  #search-input {
+    width: 100%;
+    padding: 14px 14px 14px 42px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  #search-input:focus {
+    border-color: var(--accent-dim);
+    box-shadow: 0 0 0 2px rgba(200,168,75,0.15);
+  }
+
+  #search-input::placeholder { color: var(--text-muted); opacity: 0.7; }
+
+  .search-results { margin-top: 10px; }
+
+  .search-result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 7px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .search-result-item:hover { background: var(--surface-raised); }
+
+  .search-result-name { font-weight: 600; font-size: 0.95rem; color: var(--text); }
+  .search-result-sub  { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+  .search-team-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid;
+    flex-shrink: 0;
+  }
+
+  .search-team-badge.Purple { color: var(--purple);     border-color: rgba(155,89,182,0.4);  background: rgba(155,89,182,0.1); }
+  .search-team-badge.Yellow { color: var(--yellow);     border-color: rgba(241,196,15,0.4);  background: rgba(241,196,15,0.1); }
+  .search-team-badge.Red    { color: var(--red);        border-color: rgba(231,76,60,0.4);   background: rgba(231,76,60,0.1); }
+  .search-team-badge.Green  { color: var(--green-team); border-color: rgba(90,176,112,0.4);  background: rgba(90,176,112,0.1); }
+
+  .search-empty { text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px; }
+
+  /* Team Cards */
+  .team-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .team-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .team-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .team-card.Purple::before { background: linear-gradient(90deg, #9b59b6, #c39bd3); }
+  .team-card.Yellow::before { background: linear-gradient(90deg, #f1c40f, #f9e04a); }
+  .team-card.Red::before    { background: linear-gradient(90deg, #c0392b, #f1948a); }
+  .team-card.Green::before  { background: linear-gradient(90deg, #2ecc71, #5ab070); }
+
+  .team-card:hover  { background: var(--surface-raised); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+  .team-card:active { transform: translateY(0); }
+
+  .card-team-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .card-team-name.Purple { color: var(--purple); }
+  .card-team-name.Yellow { color: var(--yellow); }
+  .card-team-name.Red    { color: var(--red); }
+  .card-team-name.Green  { color: var(--green-team); }
+
+  .card-count-big   { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1; color: var(--text); }
+  .card-count-label { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 2px; }
+  .card-arrow       { position: absolute; bottom: 14px; right: 14px; font-size: 0.9rem; color: var(--text-muted); opacity: 0.5; }
+
+  .total-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .total-label { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+  .total-count { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: var(--accent); }
+
+  /* ── ROSTER VIEW ── */
+  .stats-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 14px;
+  }
+
+  .team-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; }
+  .team-label.Purple { color: var(--purple); }
+  .team-label.Yellow { color: var(--yellow); }
+  .team-label.Red    { color: var(--red); }
+  .team-label.Green  { color: var(--green-team); }
+
+  .player-count { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px; }
+
+  .table-wrap { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead th { background: var(--forest-mid); padding: 11px 12px; font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 600; text-align: left; }
+  thead th:last-child { text-align: center; width: 80px; }
+
+  tbody tr { border-top: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:hover { background: var(--surface-raised); }
+  tbody td { padding: 12px 12px; font-size: 0.9rem; color: var(--text); }
+  tbody td:last-child { text-align: center; }
+
+  .row-num { color: var(--accent-dim); font-size: 0.7rem; font-weight: 600; min-width: 20px; }
+  .empty-state { padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+  .empty-icon { font-size: 2rem; margin-bottom: 8px; opacity: 0.5; }
+
+  .btn-row-edit, .btn-row-del { border: none; cursor: pointer; border-radius: 6px; padding: 5px 9px; font-size: 0.75rem; font-weight: 600; transition: all 0.15s; margin: 0 2px; }
+  .btn-row-edit { background: rgba(200,168,75,0.15); color: var(--accent); }
+  .btn-row-edit:hover { background: rgba(200,168,75,0.3); }
+  .btn-row-del { background: rgba(192,57,43,0.15); color: #e77; }
+  .btn-row-del:hover { background: rgba(192,57,43,0.35); }
+
+  .pagination { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 12px 12px; background: var(--forest-mid); border-top: 1px solid var(--border); }
+  .page-info { font-size: 0.75rem; color: var(--text-muted); min-width: 80px; text-align: center; }
+
+  .btn-page { border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: var(--radius-sm); padding: 7px 14px; font-size: 0.85rem; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+  .btn-page:hover:not(:disabled) { background: var(--surface-raised); border-color: var(--accent-dim); color: var(--accent); }
+  .btn-page:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .add-btn-wrap { margin-top: 16px; }
+  .btn-add { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--forest-mid), var(--light-green-soft)); border: 1px solid var(--light-green-soft); border-radius: var(--radius); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-add:hover { background: linear-gradient(135deg, var(--light-green-soft), var(--light-green)); box-shadow: 0 4px 15px rgba(90,176,112,0.25); transform: translateY(-1px); }
+  .btn-add:active { transform: translateY(0); }
+
+  .gender-badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 0.72rem; font-weight: 600; }
+  .gender-badge.M { background: rgba(90,130,200,0.2); color: #90b4e8; }
+  .gender-badge.F { background: rgba(200,100,150,0.2); color: #e890b8; }
+  .gender-badge.Other { background: rgba(150,150,150,0.2); color: #bbb; }
+
+  /* Modal */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(10,25,15,0.85); z-index: 100; backdrop-filter: blur(4px); align-items: flex-end; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+
+  .modal { background: var(--forest); border: 1px solid var(--border); border-radius: var(--radius) var(--radius) 0 0; width: 100%; max-width: 600px; padding: 28px 24px 40px; box-shadow: 0 -10px 40px rgba(0,0,0,0.5); animation: slideUp 0.25s ease; }
+
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 2px; color: var(--accent); margin-bottom: 20px; }
+  .form-group { margin-bottom: 16px; }
+  label { display: block; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
+
+  input[type="text"], input[type="number"], select { width: 100%; padding: 13px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; -webkit-appearance: none; appearance: none; }
+  input[type="text"]:focus, input[type="number"]:focus, select:focus { border-color: var(--accent-dim); box-shadow: 0 0 0 2px rgba(200,168,75,0.15); }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239ab89f' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+  .modal-actions { display: flex; gap: 10px; margin-top: 24px; }
+  .btn-cancel { flex: 1; padding: 13px; background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+  .btn-cancel:hover { border-color: var(--text-muted); color: var(--text); }
+  .btn-save { flex: 2; padding: 13px; background: linear-gradient(135deg, var(--accent-dim), var(--accent)); border: none; border-radius: var(--radius-sm); color: var(--forest-deep); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all 0.15s; }
+  .btn-save:hover { filter: brightness(1.1); box-shadow: 0 4px 12px rgba(200,168,75,0.3); }
+
+  .modal-body-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+  .highlight-name { color: var(--text); font-weight: 600; }
+  .btn-delete-confirm { flex: 2; padding: 13px; background: linear-gradient(135deg, var(--danger), var(--danger-hover)); border: none; border-radius: var(--radius-sm); color: white; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all 0.15s; }
+  .btn-delete-confirm:hover { filter: brightness(1.1); }
+
+  .match-highlight { color: var(--accent); font-weight: 700; }
+
+  header { padding: 20px 20px 0; text-align: center; position: relative; }
+
+  .save-status {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    transition: color 0.3s;
+  }
+  .save-status.saved { color: var(--light-green); }
+</style>
+</head>
+<body>
+<div class="app-wrap">
+  <header>
+    <div class="save-status" id="save-status">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      <span id="save-text">Loading…</span>
+    </div>
+    <div class="app-title">BCBA</div>
+    <div class="app-subtitle">Roster Manager</div>
+    <div class="gold-line"></div>
+  </header>
+
+  <div class="tabs-wrapper">
+    <div class="tabs" id="tabs"></div>
+  </div>
+
+  <!-- HOME VIEW -->
+  <div class="view active" id="view-home">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search player by name…"
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        oninput="handleSearch(this.value)">
+    </div>
+
+    <div id="search-results-wrap" style="display:none;">
+      <div class="home-section-title">Search Results</div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+
+    <div id="home-cards-wrap">
+      <div class="home-section-title">Team Rosters</div>
+      <div class="team-cards" id="team-cards"></div>
+      <div class="total-bar">
+        <div class="total-label">Total Players Registered</div>
+        <div class="total-count" id="total-count">0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROSTER VIEW -->
+  <div class="view" id="view-roster">
+    <div class="stats-bar">
+      <div class="team-label" id="team-label"></div>
+      <div class="player-count" id="player-count"></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Name</th><th>Gender</th><th>Age</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="roster-body"></tbody>
+      </table>
+      <div class="pagination" id="pagination"></div>
+    </div>
+    <div class="add-btn-wrap">
+      <button class="btn-add" onclick="openAddModal()">
+        <span style="font-size:1.1rem">＋</span> Add Player
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal-overlay" id="modal-form">
+  <div class="modal">
+    <div class="modal-title" id="modal-form-title">Add Player</div>
+    <div class="form-group">
+      <label for="input-name">Full Name</label>
+      <input type="text" id="input-name" placeholder="Enter player name" autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+    <div class="form-group">
+      <label for="input-gender">Gender</label>
+      <select id="input-gender">
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="input-age">Age</label>
+      <input type="number" id="input-age" placeholder="Enter age" min="1" max="99">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModals()">Cancel</button>
+      <button class="btn-save" onclick="savePlayer()">Save Player</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal-overlay" id="modal-delete">
+  <div class="modal">
+    <div class="modal-title">Remove Player</div>
+    <p class="modal-body-text">Are you sure you want to remove <span class="highlight-name" id="delete-name"></span> from the roster?</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModals()">Cancel</button>
+      <button class="btn-delete-confirm" onclick="confirmDelete()">Remove</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TEAMS = ['Purple', 'Yellow', 'Red', 'Green'];
+const PER_PAGE = 7;
+
+// ── JSONBIN CONFIG (4-tribe roster — separate bin from 5-tribe) ───
+const JSONBIN_ID  = '6a05134d250b1311c3486545';
+const JSONBIN_KEY = '$2a$10$kvsODecaTPsiInzLRxYxjugC4OkzX9CAavmHe5IMmU3N86tQP5J.a';
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
+
+let rosters = {};
+let currentTab = 'home';
+let currentTeam = TEAMS[0];
+let pages = {};
+let editingId = null;
+let deletingId = null;
+let _saveTimer = null;
+
+function showStatus(text, saved) {
+  const el = document.getElementById('save-status');
+  const tx = document.getElementById('save-text');
+  if (!tx || !el) return;
+  tx.textContent = text;
+  if (saved) {
+    el.classList.add('saved');
+    setTimeout(() => { el.classList.remove('saved'); tx.textContent = 'Ready'; }, 2000);
+  } else {
+    el.classList.remove('saved');
+  }
+}
+
+async function loadData() {
+  showStatus('Loading…');
+  try {
+    const res = await fetch(JSONBIN_URL + '/latest', {
+      headers: { 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Meta': 'false' }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.rosters) rosters = data.rosters;
+    }
+  } catch(e) {}
+  TEAMS.forEach(t => {
+    if (!rosters[t]) rosters[t] = [];
+    if (!pages[t])   pages[t]   = 1;
+  });
+  showStatus('Ready');
+  renderTabs();
+  renderHome();
+}
+
+async function saveData() {
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(async () => {
+    showStatus('Saving…');
+    try {
+      const putRes = await fetch(JSONBIN_URL, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY, 'X-Bin-Versioning': 'false' },
+        body: JSON.stringify({ rosters })
+      });
+      if (!putRes.ok) throw new Error('save failed');
+      showStatus('Saved ✓', true);
+    } catch(e) { showStatus('Save error ✗'); }
+  }, 700);
+}
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+function totalPlayers() {
+  return TEAMS.reduce((s, t) => s + rosters[t].length, 0);
+}
+
+/* ── TABS ── */
+function renderTabs() {
+  const el = document.getElementById('tabs');
+  let html = `<button class="tab-btn${currentTab === 'home' ? ' active' : ''}" data-tab="home" onclick="switchTab('home')">🏠 Home</button>`;
+  html += TEAMS.map(t =>
+    `<button class="tab-btn${currentTab === t ? ' active' : ''}" data-tab="${t}" data-team="${t}" data-count="${rosters[t].length}" onclick="switchTab('${t}')">${t}</button>`
+  ).join('');
+  el.innerHTML = html;
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('view-home').classList.remove('active');
+  document.getElementById('view-roster').classList.remove('active');
+
+  if (tab === 'home') {
+    document.getElementById('view-home').classList.add('active');
+    renderHome();
+  } else {
+    currentTeam = tab;
+    document.getElementById('view-roster').classList.add('active');
+    renderRoster();
+  }
+  renderTabs();
+}
+
+/* ── HOME VIEW ── */
+function renderHome() {
+  const cards = document.getElementById('team-cards');
+  cards.innerHTML = TEAMS.map(t => `
+    <div class="team-card ${t}" onclick="switchTab('${t}')">
+      <div class="card-team-name ${t}">${t}</div>
+      <div class="card-count-big">${rosters[t].length}</div>
+      <div class="card-count-label">Player${rosters[t].length !== 1 ? 's' : ''}</div>
+      <div class="card-arrow">→</div>
+    </div>
+  `).join('');
+  document.getElementById('total-count').textContent = totalPlayers();
+
+  // Re-run search if query is still there
+  const q = document.getElementById('search-input').value.trim();
+  if (q) handleSearch(q);
+}
+
+/* ── SEARCH ── */
+function handleSearch(q) {
+  const wrap     = document.getElementById('search-results-wrap');
+  const cardsWrap = document.getElementById('home-cards-wrap');
+  const resultsEl = document.getElementById('search-results');
+
+  q = q.trim();
+
+  if (!q) {
+    wrap.style.display = 'none';
+    cardsWrap.style.display = 'block';
+    return;
+  }
+
+  wrap.style.display = 'block';
+  cardsWrap.style.display = 'none';
+
+  const lower = q.toLowerCase();
+  const matches = [];
+  TEAMS.forEach(team => {
+    rosters[team].forEach(p => {
+      if (p.name.toLowerCase().includes(lower)) matches.push({ ...p, team });
+    });
+  });
+
+  if (matches.length === 0) {
+    resultsEl.innerHTML = `<div class="search-empty">No players found matching "<strong>${escHtml(q)}</strong>"</div>`;
+    return;
+  }
+
+  resultsEl.innerHTML = matches.map(p => {
+    const highlighted = escHtml(p.name).replace(
+      new RegExp(`(${escRegex(escHtml(q))})`, 'gi'),
+      '<span class="match-highlight">$1</span>'
+    );
+    return `
+      <div class="search-result-item" onclick="switchTab('${p.team}')">
+        <div>
+          <div class="search-result-name">${highlighted}</div>
+          <div class="search-result-sub">${p.gender} · Age ${p.age}</div>
+        </div>
+        <div class="search-team-badge ${p.team}">${p.team}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function escRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/* ── ROSTER VIEW ── */
+function renderRoster() {
+  const team = rosters[currentTeam];
+  const totalPages = Math.max(1, Math.ceil(team.length / PER_PAGE));
+  if (pages[currentTeam] > totalPages) pages[currentTeam] = totalPages;
+  const page = pages[currentTeam];
+
+  document.getElementById('team-label').className = `team-label ${currentTeam}`;
+  document.getElementById('team-label').textContent = `${currentTeam} Team`;
+  document.getElementById('player-count').textContent = `${team.length} player${team.length !== 1 ? 's' : ''}`;
+
+  const start = (page - 1) * PER_PAGE;
+  const slice = team.slice(start, start + PER_PAGE);
+  const tbody = document.getElementById('roster-body');
+
+  tbody.innerHTML = team.length === 0
+    ? `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">🏀</div>No players yet. Add one below.</div></td></tr>`
+    : slice.map((p, i) => `
+        <tr>
+          <td class="row-num">${start + i + 1}</td>
+          <td>${escHtml(p.name)}</td>
+          <td><span class="gender-badge ${p.gender}">${p.gender}</span></td>
+          <td>${p.age}</td>
+          <td>
+            <button class="btn-row-edit" onclick="openEditModal('${p.id}')">Edit</button>
+            <button class="btn-row-del" onclick="openDeleteModal('${p.id}')">Del</button>
+          </td>
+        </tr>
+      `).join('');
+
+  const pag = document.getElementById('pagination');
+  if (totalPages <= 1) {
+    pag.innerHTML = ''; pag.style.display = 'none';
+  } else {
+    pag.style.display = 'flex';
+    pag.innerHTML = `
+      <button class="btn-page" onclick="changePage(-1)" ${page <= 1 ? 'disabled' : ''}>‹ Prev</button>
+      <div class="page-info">Page ${page} of ${totalPages}</div>
+      <button class="btn-page" onclick="changePage(1)" ${page >= totalPages ? 'disabled' : ''}>Next ›</button>
+    `;
+  }
+}
+
+function changePage(dir) {
+  const totalPages = Math.max(1, Math.ceil(rosters[currentTeam].length / PER_PAGE));
+  pages[currentTeam] = Math.min(totalPages, Math.max(1, pages[currentTeam] + dir));
+  renderRoster();
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ── MODALS ── */
+function openAddModal() {
+  editingId = null;
+  document.getElementById('modal-form-title').textContent = 'Add Player';
+  document.getElementById('input-name').value = '';
+  document.getElementById('input-gender').value = 'M';
+  document.getElementById('input-age').value = '';
+  document.getElementById('modal-form').classList.add('open');
+  setTimeout(() => document.getElementById('input-name').focus(), 300);
+}
+
+function openEditModal(id) {
+  const player = rosters[currentTeam].find(p => p.id === id);
+  if (!player) return;
+  editingId = id;
+  document.getElementById('modal-form-title').textContent = 'Edit Player';
+  document.getElementById('input-name').value = player.name;
+  document.getElementById('input-gender').value = player.gender;
+  document.getElementById('input-age').value = player.age;
+  document.getElementById('modal-form').classList.add('open');
+}
+
+function openDeleteModal(id) {
+  const player = rosters[currentTeam].find(p => p.id === id);
+  if (!player) return;
+  deletingId = id;
+  document.getElementById('delete-name').textContent = player.name;
+  document.getElementById('modal-delete').classList.add('open');
+}
+
+function closeModals() {
+  document.getElementById('modal-form').classList.remove('open');
+  document.getElementById('modal-delete').classList.remove('open');
+  editingId = null; deletingId = null;
+}
+
+function savePlayer() {
+  const name   = document.getElementById('input-name').value.trim();
+  const gender = document.getElementById('input-gender').value;
+  const age    = parseInt(document.getElementById('input-age').value);
+
+  if (!name) { alert('Please enter a name.'); return; }
+  if (!age || age < 1 || age > 99) { alert('Please enter a valid age.'); return; }
+
+  if (editingId) {
+    const idx = rosters[currentTeam].findIndex(p => p.id === editingId);
+    if (idx !== -1) rosters[currentTeam][idx] = { id: editingId, name, gender, age };
+  } else {
+    rosters[currentTeam].push({ id: uid(), name, gender, age });
+    pages[currentTeam] = Math.ceil(rosters[currentTeam].length / PER_PAGE);
+  }
+
+  saveData();
+  closeModals();
+  renderTabs();
+  renderRoster();
+}
+
+function confirmDelete() {
+  if (!deletingId) return;
+  rosters[currentTeam] = rosters[currentTeam].filter(p => p.id !== deletingId);
+  saveData();
+  closeModals();
+  renderTabs();
+  renderRoster();
+}
+
+document.getElementById('modal-form').addEventListener('click', function(e) { if (e.target === this) closeModals(); });
+document.getElementById('modal-delete').addEventListener('click', function(e) { if (e.target === this) closeModals(); });
+
+/* ── INIT ── */
+loadData(); // async — renders tabs & home when data arrives
+</script>
+</body>
+</html>
